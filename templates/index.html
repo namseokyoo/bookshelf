@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>반갑습니다</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    
+    <style>
+        .content-wrap {
+            /* width: 1000px; */
+            /* height: 50px; */
+            /* margin: auto; */
+            margin-top: 20rem;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #searchbook {
+            width :500px;
+        }
+    </style>
+
+    <script>
+        function search() {
+            console.log($("#searchbook").val());
+            //카카오 api에서 책정보 가져오기
+            $.ajax({
+                method: "GET",
+                url: "https://dapi.kakao.com/v3/search/book?target=title",
+                data: { query: $("#searchbook").val() },
+                headers: { Authorization: "KakaoAK APIKEY" },
+                success: function (response) {
+                    console.log(response)
+                    console.log(response.documents[0].title)//책 제목
+                    console.log(response.documents[0].authors)//책 저자
+                    console.log(response.documents[0].thumbnail)//책 그림
+                    console.log(response.documents[0].contents)//책 설명
+                }
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <!-- <div class="input-group mb-3, content-wrap">
+        <div class="input-group-prepend">
+          <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">제목</a>
+            <a class="dropdown-item" href="#">저자</a>
+            <a class="dropdown-item" href="#">키워드</a>
+          </div>
+        </div>
+        <input id="bookName" type="text" class="form-control" style='height:50px' aria-label="Text input with dropdown button">
+        <button id="search" onclick='search()'>검색</button>
+      </div> -->
+
+    <div class="content-wrap">
+        <div class="form-inline">
+            <input class="form-control mr-sm-2" id="searchbook" type="search" placeholder="제목, 저자명, ISBN" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="search()">Search</button>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -30,7 +30,7 @@
                     method: "GET",
                     url: "https://dapi.kakao.com/v3/search/book?target=title",
                     data: { query: $("#bookName").val() }, 
-                    headers: { Authorization: "KakaoAK"api key },
+                    headers: { Authorization: "KakaoAK 315da6fc83b1b809023e13de9602dad2" },
                     success: function (response) {
                         console.log(response)
                         console.log(response.documents[0].title)//책 제목
