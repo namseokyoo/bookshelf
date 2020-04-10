@@ -2,9 +2,18 @@
 bookshelf, 나만의 책장, 리뷰를 한번에 보는곳
 
 # Feature
-* 관심있는 책들을 API검색으로 저장
-* 달력, 목록 형태로 확인 가능
-* 관련 리뷰, 유튜브 연결
+1. Landing Page
+* page 구성 - 남석
+* 내 책장 링크 - 남석
+* kakao API 에서 도서정보 검색 - 재원
+
+2. Bookshelf Page
+* bootstrap 달력, 목록 만들기 - 재원
+
+3. Review Page
+* 네이버북 크롤링 - 재원 
+* 교보리뷰 크롤링 -남석
+* 유튜브 API 활용 연결
 * 태그, 별점
 
 # Use
