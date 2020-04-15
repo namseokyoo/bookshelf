@@ -18,14 +18,18 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
-    
-    <style>
-        .content-wrap {
-            /* width: 1000px; */
-            /* height: 50px; */
-            /* margin: auto; */
-            margin-top: 20rem;
 
+    <style>
+        .list-unstyled{
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .content-wrap {
+            margin-top: 20rem;
+            margin-bottom: 4rem;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -33,25 +37,83 @@
         }
 
         #searchbook {
-            width :500px;
+            width: 500px;
         }
     </style>
 
     <script>
+        $(document).ready(function () {
+            listing();
+            // 화면 로딩시 리스트 화면 제어
+        });
+
+
+        function listing() {
+            //검색 결과 카드 형태로 나열
+            console.log("리스팅 완료");
+
+
+        }
+
+        function emptylist() {
+            $('#bookresult').empty();
+        }
+
+
+        function make_card(thumbnail, title, authors, contents) {
+            // 카드 형태 결과 표시
+            // let bookcard =
+            //         `<div class="col mb-4">
+            //     <div class="card">
+            //         <img src="${thumbnail}" class="card-img-top" alt="...">
+            //         <div class="card-body">
+            //             <h5 class="card-title">${title}</h5>
+            //             <p class="card-text">${contents}</p>
+            //         </div>
+            //     </div>
+            // </div>`
+
+            // 리스트 형태 결과 표시
+            let bookcard =
+                `<li class="media">
+                    <img src="${thumbnail}" class="mr-3" alt="..." height="120">
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-1">${title}</h5><h6>${authors}</h6>
+                            ${contents}
+                        </div>
+                </li>`
+
+
+            $('#bookresult').append(bookcard);
+        }
+
         function search() {
-            console.log($("#searchbook").val());
-            //카카오 api에서 책정보 가져오기
+            emptylist();
+            // console.log($("#searchbook").val());
+            //카카오 api에서 책정보 가져오기 (제목, 저자, ISBN 검색 가능)
             $.ajax({
                 method: "GET",
                 url: "https://dapi.kakao.com/v3/search/book?target=title",
-                data: { query: $("#searchbook").val() },
-                headers: { Authorization: "KakaoAK APIKEY" },
+                data: {
+                    query: $("#searchbook").val(),
+                    size: 20
+
+                },
+                headers: { Authorization: "KakaoAK 485194bdc92b5610818fbd0271b4e00e" }, //API KEY 노출 주의할것
                 success: function (response) {
-                    console.log(response)
-                    console.log(response.documents[0].title)//책 제목
-                    console.log(response.documents[0].authors)//책 저자
-                    console.log(response.documents[0].thumbnail)//책 그림
-                    console.log(response.documents[0].contents)//책 설명
+                    console.log(response);
+                    //  console.log(books);
+                    for (let i = 0; i < response.documents.length; i++) {
+                        let books = response.documents[i]
+                        // console.log(books[i]);
+                        // console.log(books.title);
+                        make_card(
+                            books.thumbnail,
+                            books.title,
+                            books.authors,
+                            books.contents
+                        )
+                    }
                 }
             })
         }
@@ -71,13 +133,27 @@
         <input id="bookName" type="text" class="form-control" style='height:50px' aria-label="Text input with dropdown button">
         <button id="search" onclick='search()'>검색</button>
       </div> -->
-
+    <!-- 검색 버튼 -->
     <div class="content-wrap">
         <div class="form-inline">
-            <input class="form-control mr-sm-2" id="searchbook" type="search" placeholder="제목, 저자명, ISBN" aria-label="Search">
+            <input class="form-control mr-sm-2" id="searchbook" type="search" placeholder="제목, 저자명, ISBN"
+                aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="search()">Search</button>
         </div>
     </div>
+
+    <!-- 검색 결과 리스트 -->
+    <!-- <div class="row row-cols-1 row-cols-md-3" id="bookresult"> -->
+        <!-- 검색 결과 리스트 위치 -->
+    <!-- </div> -->
+
+    <!-- 검색 결과 리스트 -->
+    <ul class="list-unstyled" id="bookresult">
+        <!-- 검색 결과 리스트 위치 -->
+    </ul>
+
+
+
 
 </body>
 
