@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 from pymongo import MongoClient
 
 from review import req_review
+from searchvideo import search_video
 
 
 load_dotenv()
@@ -27,6 +28,13 @@ def welcome():
 def review():
     url='https://search.daum.net/search?w=bookpage&bookId=532462&q=%ED%94%BC%ED%94%84%ED%8B%B0+%ED%94%BC%ED%94%8C'
     result = req_review(url)
+    return jsonify({'result':result})
+
+
+@app.route('/searchvideo')
+def video():
+    options='피프티 피플'
+    result = search_video(options)
     return jsonify({'result':result})
 
 
