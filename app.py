@@ -42,16 +42,20 @@ def info():
 
    info=books['documents']
 
-      
-
-  # book={'title':title,'authors':authors,'contents':contents,'thumbnail':thumbnail}
-
+   #book={'title':title,'authors':authors,'contents':contents,'thumbnail':thumbnail}
    #db.books.insert_one(book)
-
+      
    return jsonify({'result':'success','info':info})
 
+@app.route('/bookshelf')
+def bookshelf():
+   return render_template('fullcalendar.html')
 
 
 if __name__=='__main__' :
-    app.run('localhost', 5005, debug=True)
+   app.run('localhost', 5005, debug=True)
+
+
+
+
 
