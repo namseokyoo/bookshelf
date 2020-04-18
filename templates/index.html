@@ -20,13 +20,14 @@
 
 
     <style>
-        .list-unstyled{
+        .list-unstyled {
             margin: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
         }
+
         .content-wrap {
             margin-top: 20rem;
             margin-bottom: 4rem;
@@ -34,7 +35,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            
+
         }
 
         #searchbook {
@@ -88,12 +89,23 @@
             $('#bookresult').append(bookcard);
         }
 
+        // 엔터키 눌렀을때 이벤트 발생하게 하는 함수
+        function enterkey() {
+            if (window.event.keyCode == 13) {
+
+                // 엔터키가 눌렸을 때 실행할 내용
+                search();
+            }
+        }
+
+
+
         function search() {
             emptylist();
             // console.log($("#searchbook").val());
             //카카오 api에서 책정보 가져오기 (제목, 저자, ISBN 검색 가능)
-            let searchbook=$("#searchbook").val()
-            let search_key=$('#search_key').val()
+            let searchbook = $("#searchbook").val()
+            let search_key = $('#search_key').val()
             console.log(searchbook)
             console.log(search_key)
 
@@ -101,21 +113,21 @@
                 method: "POST",
                 url: "/info",
                 data: {
-                    searchbook:searchbook,
-                    search_key:search_key
+                    searchbook: searchbook,
+                    search_key: search_key
                 },
                 success: function (response) {
                     let info = response.info
                     console.log(info)
 
                     for (let i = 0; i < info.length; i++) {
-                    let books = response.info[i]
-                    make_card(
-                        books.thumbnail,
-                        books.title,
-                        books.authors,
-                        books.contents
-                    )
+                        let books = response.info[i]
+                        make_card(
+                            books.thumbnail,
+                            books.title,
+                            books.authors,
+                            books.contents
+                        )
                     }
                 }
             })
@@ -147,16 +159,16 @@
                     <option value='authors'>저자</option>
                     <option value='ISBN'>ISBN</option>
                 </select>
-              </div>
+            </div>
             <input class="form-control mr-sm-2" id="searchbook" type="search" placeholder="제목, 저자명, ISBN"
-                aria-label="Search">
+                aria-label="Search" onkeyup="enterkey()">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="search()">Search</button>
         </div>
     </div>
 
     <!-- 검색 결과 리스트 -->
     <!-- <div class="row row-cols-1 row-cols-md-3" id="bookresult"> -->
-        <!-- 검색 결과 리스트 위치 -->
+    <!-- 검색 결과 리스트 위치 -->
     <!-- </div> -->
 
     <!-- 검색 결과 리스트 -->
