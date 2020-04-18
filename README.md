@@ -9,6 +9,7 @@ bookshelf, 나만의 책장, 리뷰를 한번에 보는곳
 
 2. Bookshelf Page
 * bootstrap 달력, 목록 만들기 - 재원
+* /bookshelf 라는 url에 달력페이지 띄우기
 
 3. Review Page
 * 네이버북 크롤링 - 재원 
