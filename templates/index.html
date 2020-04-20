@@ -20,26 +20,13 @@
 
 
     <style>
-        .media-body {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 5;    /* 라인수 */
-            -webkit-box-orient: vertical;
-            word-wrap: break-word;
-            line-height: 1.2em;
-            height: 6em;    /* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
-            margin: 15px;
-        }
-
-        .list-unstyled {
+        .list-unstyled{
             margin: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
         }
-
         .content-wrap {
             margin-top: 20rem;
             margin-bottom: 4rem;
@@ -47,7 +34,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-
+            
         }
 
         #searchbook {
@@ -88,9 +75,6 @@
             // </div>`
 
             // 리스트 형태 결과 표시
-            if (thumbnail == "") {
-                thumbnail = 'https://search1.kakaocdn.net/thumb/C116x164.q85/?fname=http://search1.daumcdn.net/search/statics/common/img/noimg/4grid.png'
-            }
             let bookcard =
                 `<li class="media">
                     <img src="${thumbnail}" class="mr-3" alt="..." height="120">
@@ -104,45 +88,32 @@
             $('#bookresult').append(bookcard);
         }
 
-        // 엔터키 눌렀을때 이벤트 발생하게 하는 함수
-        function enterkey() {
-            if (window.event.keyCode == 13) {
-
-                // 엔터키가 눌렸을 때 실행할 내용
-                search();
-            }
-        }
-
-
-
         function search() {
             emptylist();
             // console.log($("#searchbook").val());
             //카카오 api에서 책정보 가져오기 (제목, 저자, ISBN 검색 가능)
-            let searchbook = $("#searchbook").val()
-            let search_key = $('#search_key').val()
-            console.log(searchbook)
+            let searchbook=$("#searchbook").val()
+            let search_key=$('#search_key').val()
             console.log(search_key)
-
             $.ajax({
                 method: "POST",
                 url: "/info",
                 data: {
-                    searchbook: searchbook,
-                    search_key: search_key
+                    searchbook:searchbook,
+                    search_key:search_key
                 },
                 success: function (response) {
                     let info = response.info
                     console.log(info)
 
                     for (let i = 0; i < info.length; i++) {
-                        let books = response.info[i]
-                        make_card(
-                            books.thumbnail,
-                            books.title,
-                            books.authors,
-                            books.contents
-                        )
+                    let books = response.info[i]
+                    make_card(
+                        books.thumbnail,
+                        books.title,
+                        books.authors,
+                        books.contents
+                    )
                     }
                 }
             })
@@ -167,6 +138,15 @@
     </div>-->
     <!-- 검색 버튼 -->
     <div class="content-wrap">
+        <a href='/bookshelf'>
+            <button type="button" class="btn btn-default">
+                <svg class="bi bi-book" width="4em" height="4em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 018.5 2.5v11a.5.5 0 01-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 010 13.5v-11a.5.5 0 01.276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 01.22-.103 12.958 12.958 0 012.7-.869zM1 2.82v9.908c.846-.343 1.944-.672 3.074-.788 1.143-.118 2.387-.023 3.426.56V2.718c-1.063-.929-2.631-.956-4.09-.664A11.958 11.958 0 001 2.82z" clip-rule="evenodd"/>
+                    <path fill-rule="evenodd" d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 007.5 2.5v11a.5.5 0 00.854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0016 13.5v-11a.5.5 0 00-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 00-.799-.34 12.96 12.96 0 00-2.073-.609zM15 2.82v9.908c-.846-.343-1.944-.672-3.074-.788-1.143-.118-2.387-.023-3.426.56V2.718c1.063-.929 2.631-.956 4.09-.664A11.956 11.956 0 0115 2.82z" clip-rule="evenodd"/>
+                  </svg>
+            <br>내 책장
+            </button>
+        </a>
         <div class="form-inline">
             <div class="input-group-prepend">
                 <select id='search_key' class="form-control mr-sm-2">
@@ -174,16 +154,16 @@
                     <option value='authors'>저자</option>
                     <option value='ISBN'>ISBN</option>
                 </select>
-            </div>
+              </div>
             <input class="form-control mr-sm-2" id="searchbook" type="search" placeholder="제목, 저자명, ISBN"
-                aria-label="Search" onkeyup="enterkey()">
+                aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="search()">Search</button>
         </div>
     </div>
 
     <!-- 검색 결과 리스트 -->
     <!-- <div class="row row-cols-1 row-cols-md-3" id="bookresult"> -->
-    <!-- 검색 결과 리스트 위치 -->
+        <!-- 검색 결과 리스트 위치 -->
     <!-- </div> -->
 
     <!-- 검색 결과 리스트 -->
