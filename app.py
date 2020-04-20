@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from pymongo import MongoClient
 
 from review import req_review
-#from searchvideo import search_video
+from searchvideo import search_video
 
 
 load_dotenv()
@@ -34,8 +34,7 @@ def review():
 @app.route('/searchvideo')
 def video():
     options='피프티 피플'
-#    result = search_video(options)
-    result = []
+    result = search_video(options)
     return jsonify({'result':result})
 
 @app.route('/bookshelf')
