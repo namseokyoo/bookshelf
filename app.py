@@ -38,6 +38,10 @@ def video():
     result = []
     return jsonify({'result':result})
 
+@app.route('/bookshelf')
+def bookshelf():
+   return render_template('fullcalendar.html')
+
 
 @app.route('/info',methods=['POST'])
 def info():
