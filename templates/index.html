@@ -24,11 +24,13 @@
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
-            -webkit-line-clamp: 5;    /* 라인수 */
+            -webkit-line-clamp: 5;
+            /* 라인수 */
             -webkit-box-orient: vertical;
             word-wrap: break-word;
             line-height: 1.2em;
-            height: 6em;    /* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
+            height: 6em;
+            /* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
             margin: 15px;
         }
 
@@ -48,6 +50,22 @@
             align-items: center;
             justify-content: center;
 
+        }
+
+        .media:hover {
+            opacity: 0.5;
+            position: relative;
+        }
+
+        .media_button {
+            display: none;
+        }
+
+        .media:hover .media_button {
+            position: absolute;
+            top:50%;
+            left:50%;
+            display:block;
         }
 
         #searchbook {
@@ -74,25 +92,18 @@
         }
 
 
-        function make_card(thumbnail, title, authors, contents) {
-            // 카드 형태 결과 표시
-            // let bookcard =
-            //         `<div class="col mb-4">
-            //     <div class="card">
-            //         <img src="${thumbnail}" class="card-img-top" alt="...">
-            //         <div class="card-body">
-            //             <h5 class="card-title">${title}</h5>
-            //             <p class="card-text">${contents}</p>
-            //         </div>
-            //     </div>
-            // </div>`
-
+        function make_card(thumbnail, title, authors, contents, url) {
             // 리스트 형태 결과 표시
             if (thumbnail == "") {
                 thumbnail = 'https://search1.kakaocdn.net/thumb/C116x164.q85/?fname=http://search1.daumcdn.net/search/statics/common/img/noimg/4grid.png'
             }
+            
             let bookcard =
                 `<li class="media">
+                    <div class="media_button">
+                        <button type="button" onclick="location.href='${url}'">리뷰 보기</button>
+                        <button type="button">내 책장 넣기</button>
+                    </div>
                     <img src="${thumbnail}" class="mr-3" alt="..." height="120">
                         <div class="media-body">
                             <h5 class="mt-0 mb-1">${title}</h5><h6>${authors}</h6>
@@ -103,6 +114,7 @@
 
             $('#bookresult').append(bookcard);
         }
+
 
         // 엔터키 눌렀을때 이벤트 발생하게 하는 함수
         function enterkey() {
@@ -141,7 +153,8 @@
                             books.thumbnail,
                             books.title,
                             books.authors,
-                            books.contents
+                            books.contents,
+                            books.url
                         )
                     }
                 }
