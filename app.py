@@ -41,6 +41,10 @@ def video():
     result = search_video(options)
     return jsonify({'result': 'success', 'searchvideo': result})
 
+@app.route('/bookshelf')
+def bookshelf():
+   return render_template('test.html')
+
 
 @app.route('/info', methods=['POST'])
 def info():

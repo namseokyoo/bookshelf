@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+	<meta charset='utf-8' />
+
+	<link href='static/core/main.css' rel='stylesheet' />
+	<link href='static/daygrid/main.css' rel='stylesheet' />
+
+	<script src='static/core/main.js'></script>
+	<script src='static/daygrid/main.js'></script>
+	<script src='static/interaction/main.js'></script>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+
+	<script>
+
+
+		document.addEventListener('DOMContentLoaded', function () {
+			var calendarEl = document.getElementById('calendar');
+		
+			var calendar = new FullCalendar.Calendar(calendarEl, {
+				height: 700,
+				plugins: ['dayGrid','interaction'],
+				
+				editable: true
+				
+			});
+			function listing() {
+				event = {
+					title: 'url',
+					start: '2020-04-05',
+					url: 'http://google.com/'
+				}
+				calendar.addEvent(event);
+
+			}
+			listing();
+
+			calendar.render();
+		});
+
+
+
+	</script>
+
+	<style>
+		.content-wrap {
+			margin-top: 2rem;
+			margin-bottom: 0rem;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+
+		}
+	</style>
+
+</head>
+
+<body>
+	<div class='content-wrap'>
+		<a href='/' style='color:black'>
+			<button type="button" class="btn btn-default">
+                <svg class="bi bi-house-door" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 01.708 0l6 6a.5.5 0 01.146.354v7a.5.5 0 01-.5.5H9.5a.5.5 0 01-.5-.5v-4H7v4a.5.5 0 01-.5.5H2a.5.5 0 01-.5-.5v-7a.5.5 0 01.146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 01.5-.5h3a.5.5 0 01.5.5v4h3.5V7.707L8 2.207l-5.5 5.5z" clip-rule="evenodd"/>
+					<path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5z" clip-rule="evenodd"/>
+				  </svg>
+            <br>홈
+		</a>
+	</div>
+
+	<div id='calendar' style='margin: 0rem 10rem 3rem'></div>
+
+</body>
+
+</html>
