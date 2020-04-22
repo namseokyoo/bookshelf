@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 
 def req_review(product_url):
-    # URL을 읽어서 HTML를 Data에 받아옴(나중에 URL은 검색결과에서 받아옴)
+    # URL을 읽어서 HTML를 Data에 받아옴
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
     data = requests.get(product_url, headers=headers)
