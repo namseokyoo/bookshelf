@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 from pymongo import MongoClient
 
 from review import req_review
+from bookinfo import req_info
 from searchvideo import search_video
 
 
@@ -25,15 +26,26 @@ def welcome():
     return render_template('index.html')
 
 
-@app.route('/reviews')
+@app.route('/reviews', methods=['POST'])
 def review():
-    bookurl = 'https://search.daum.net/search?w=bookpage&bookId=532462&q=%ED%94%BC%ED%94%84%ED%8B%B0+%ED%94%BC%ED%94%8C'
+    bookurl = request.form['bookurl']
     result = req_review(bookurl)
     return jsonify({'result': 'success', 'review': result})
 
+
+@app.route('/bookinfo', methods=['POST'])
+def bookinfo():
+    infourl = request.form['bookurl']
+    result = req_info(infourl)
+    print(result)
+    return jsonify({'result': 'success', 'info': result})    
+
+
 @app.route('/review')
 def review_page():
-    return render_template('review.html')
+    book_url=request.query_string
+    return render_template('review.html', bookurl=book_url.decode('ascii'))
+
 
 @app.route('/searchvideo')
 def video():

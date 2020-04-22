@@ -43,30 +43,110 @@
     <!-- //end-smooth-scrolling -->
 
     <script>
+        // function searchParam(review) {
+        //     alert(URLSearchParams(location.search).get(review))
+        // };
+
+
         $(document).ready(function () {
-            review() // 화면 로딩시 리뷰 불러옴
+            bookurl = $('#bookreview_url').text();
+            emptylist()
+            bookinfo(bookurl);
+            reviews(bookurl); // 화면 로딩시 리뷰 불러옴
+
         })
 
+        function emptylist() {
+            $('#bookresult').empty();
+        }
+        function reviews(url) {
 
-        function review() {
             $.ajax({
-                method: 'GET',
+                type: 'POST',
                 url: '/reviews',
                 data: {
-                    // url: 'https://search.daum.net/search?w=bookpage&bookId=532462&q=%ED%94%BC%ED%94%84%ED%8B%B0+%ED%94%BC%ED%94%8C'
+                    bookurl: url
                 },
                 success: function (response) {
                     let review = response.review;
+                    for (i = 0; i < review.length; i++) {
+                        let reviews = response.review[i]
+                        make_review(
+                            reviews.title,
+                            reviews.contents,
+                            reviews.location,
+                            reviews.reviewer,
+                            reviews.review_date
+                        )
+                    }
                     console.log(review);
                 }
             })
         }
+
+
+        function bookinfo(url) {
+
+            $.ajax({
+                type: 'POST',
+                url: '/bookinfo',
+                data: {
+                    bookurl: url
+                },
+                success: function (response) {
+                    let bookinfo = response.info;
+                    make_page(
+                        bookinfo.title,
+                        bookinfo.author,
+                        bookinfo.company,
+                        bookinfo.date,
+                        bookinfo.img
+                    )
+
+                }
+            })
+        }
+
+        function make_review(title, contents, location, reviewer, review_date) {
+
+            let reviewlist =
+                `<div class="additional_info_sub_grids">
+                    <div class="col-xs-2 additional_info_sub_grid_left">
+                            <h4>${reviewer}</h4>
+                            <h5>${review_date}</h5>
+                            <h6>${location}</h6>
+                    </div>
+                <div class="col-xs-10 additional_info_sub_grid_right">
+                <div class="additional_info_sub_grid_rightl">
+                    <p>${contents}</p>
+                </div>
+                <div class="clearfix"> 
+                    </div>
+                </div>
+                <div class="clearfix"> 
+                    </div>
+                </div>`
+
+
+
+            $('#reviews-list').append(reviewlist);
+        }
+
+        function make_page(title, author, company, date, img) {
+            $("#thumb-image").attr("src", img);
+            $("#booktitle").text(title)
+            $("#author").text(author)
+            $("#company").text(company)
+            $("#date").text(date)
+
+        }
     </script>
     <style>
-        dt{
+        dt {
             float: left;
         }
-        dd{
+
+        dd {
             margin-left: 3px;
         }
     </style>
@@ -76,16 +156,18 @@
     <!-- single -->
     <div class="single">
         <div class="container">
+            <!-- 파라미터 받아오기  -->
+            <div id="bookreview_url" style="display:none">{{ bookurl }}</div>
+            <!--  파라미터 받아오기 끝-->
             <div class="col-md-4 single-left">
-                <div class="thumb-image"> <img
-                        src="https://search1.kakaocdn.net/thumb/C116x164.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F532462%3Ftimestamp%3D20200419123008%3Fmoddttm=202004192257"
-                        data-imagezoom="true" class="img-responsive" alt=""> </div>
+                <div class="thumb-image"> <img id="thumb-image" src="" data-imagezoom="true" class="img-responsive"
+                        alt=""> </div>
                 <!-- zooming-effect -->
                 <script src="static/js/imagezoom.js"></script>
                 <!-- //zooming-effect -->
             </div>
             <div class="col-md-8 single-right">
-                <h3>피프티 피플</h3>
+                <h3 id='booktitle'></h3>
                 <div class="rating1">
                     <span class="starRating">
                         <input id="rating5" type="radio" name="rating" value="5">
@@ -103,19 +185,19 @@
                 <div class="description">
                     <dl>
                         <dt>저자</dt>
-                        <dd>정세랑</dd>
+                        <dd id="author"></dd>
                     </dl>
                 </div>
                 <div class="description">
                     <dl>
                         <dt>출판사</dt>
-                        <dd>창비</dd>
+                        <dd id="company"></dd>
                     </dl>
                 </div>
                 <div class="description">
                     <dl>
                         <dt>출간일</dt>
-                        <dd>2016년 11월 21일</dd>
+                        <dd id="date"></dd>
                     </dl>
                 </div>
 
@@ -166,60 +248,12 @@
 
                     <div class="tab-2 resp-tab-content additional_info_grid" aria-labelledby="tab_item-1">
                         <h4>Reviews</h4>
-                        <div class="additional_info_sub_grids">
-                            <div class="col-xs-2 additional_info_sub_grid_left">
-                                <a href="single.html">Michael</a>
-                                <h5>Oct 04, 2016.</h5>
-                                <h6>티스토리</h6>
-                            </div>
-                            <div class="col-xs-10 additional_info_sub_grid_right">
-                                <div class="additional_info_sub_grid_rightl">
-
-                                    <p>Quis autem vel eum iure reprehenderit qui in ea voluptate
-                                        velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat
-                                        quo voluptas nulla pariatur.</p>
-                                </div>
-                                <div class="clearfix"> </div>
-                            </div>
-                            <div class="clearfix"> </div>
-                        </div>
-                        <div class="additional_info_sub_grids">
-                            <div class="col-xs-2 additional_info_sub_grid_left">
-                                <a href="single.html">Michael</a>
-                                <h5>Oct 04, 2016.</h5>
-                                <h6>티스토리</h6>
-                            </div>
-                            <div class="col-xs-10 additional_info_sub_grid_right">
-                                <div class="additional_info_sub_grid_rightl">
-
-                                    <p>Quis autem vel eum iure reprehenderit qui in ea voluptate
-                                        velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat
-                                        quo voluptas nulla pariatur.</p>
-                                </div>
-                                <div class="clearfix"> </div>
-                            </div>
-                            <div class="clearfix"> </div>
-                        </div>
-                        <div class="additional_info_sub_grids">
-                            <div class="col-xs-2 additional_info_sub_grid_left">
-                                <a href="single.html">Michael</a>
-                                <h5>Oct 04, 2016.</h5>
-                                <h6>티스토리</h6>
-                            </div>
-                            <div class="col-xs-10 additional_info_sub_grid_right">
-                                <div class="additional_info_sub_grid_rightl">
-
-                                    <p>Quis autem vel eum iure reprehenderit qui in ea voluptate
-                                        velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat
-                                        quo voluptas nulla pariatur.</p>
-                                </div>
-                                <div class="clearfix"> </div>
-                            </div>
-                            <div class="clearfix"> </div>
+                        <div id="reviews-list">
+                            <!-- reviews 공간 -->
                         </div>
                         <div class="review_grids">
                             <h5>내 리뷰 추가</h5>
-                            <form action="#" method="post"> 
+                            <form action="#" method="post">
                                 <input type="text" name="Name" value="Name" onfocus="this.value = '';"
                                     onblur="if (this.value == '') {this.value = 'Name';}" required="">
                                 <input type="email" name="Email" placeholder="Email" required="">

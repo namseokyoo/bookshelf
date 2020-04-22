@@ -63,9 +63,9 @@
 
         .media:hover .media_button {
             position: absolute;
-            top:50%;
-            left:50%;
-            display:block;
+            top: 50%;
+            left: 50%;
+            display: block;
         }
 
         #searchbook {
@@ -76,15 +76,11 @@
     <script>
         $(document).ready(function () {
             listing();
-            // 화면 로딩시 리스트 화면 제어
-        });
-
+        })
 
         function listing() {
             //검색 결과 카드 형태로 나열
             console.log("리스팅 완료");
-
-
         }
 
         function emptylist() {
@@ -92,19 +88,21 @@
         }
 
 
+
+
         function make_card(thumbnail, title, authors, contents, url) {
             // 리스트 형태 결과 표시
             if (thumbnail == "") {
                 thumbnail = 'https://search1.kakaocdn.net/thumb/C116x164.q85/?fname=http://search1.daumcdn.net/search/statics/common/img/noimg/4grid.png'
             }
-            
+
             let bookcard =
                 `<li class="media">
                     <div class="media_button">
-                        <button type="button" onclick="location.href='${url}'">리뷰 보기</button>
+                        <button type="button" onclick="location.href='/review?${encodeURI(url)}'">리뷰 보기</button>
                         <button type="button">내 책장 넣기</button>
                     </div>
-                    <img src="${thumbnail}" class="mr-3" alt="..." height="120">
+                        <img src="${thumbnail}" class="mr-3" alt="..." height="120">
                         <div class="media-body">
                             <h5 class="mt-0 mb-1">${title}</h5><h6>${authors}</h6>
                             ${contents}
@@ -119,7 +117,6 @@
         // 엔터키 눌렀을때 이벤트 발생하게 하는 함수
         function enterkey() {
             if (window.event.keyCode == 13) {
-
                 // 엔터키가 눌렸을 때 실행할 내용
                 search();
             }
