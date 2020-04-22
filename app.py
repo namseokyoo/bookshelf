@@ -43,7 +43,7 @@ def video():
 
 @app.route('/bookshelf')
 def bookshelf():
-   return render_template('test.html')
+   return render_template('fullcalendar.html')
 
 
 @app.route('/info', methods=['POST'])
