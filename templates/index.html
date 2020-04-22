@@ -37,6 +37,22 @@
             
         }
 
+        .media:hover {
+            opacity: 0.5;
+            position: relative;
+        }
+
+        .media_button {
+            display: none;
+        }
+
+        .media:hover .media_button {
+            position: absolute;
+            top:50%;
+            left:50%;
+            display:block;
+        }
+
         #searchbook {
             width: 500px;
         }
@@ -61,22 +77,14 @@
         }
 
 
-        function make_card(thumbnail, title, authors, contents) {
-            // 카드 형태 결과 표시
-            // let bookcard =
-            //         `<div class="col mb-4">
-            //     <div class="card">
-            //         <img src="${thumbnail}" class="card-img-top" alt="...">
-            //         <div class="card-body">
-            //             <h5 class="card-title">${title}</h5>
-            //             <p class="card-text">${contents}</p>
-            //         </div>
-            //     </div>
-            // </div>`
-
+        function make_card(thumbnail, title, authors, contents, url) {
             // 리스트 형태 결과 표시
             let bookcard =
                 `<li class="media">
+                    <div class="media_button">
+                        <button type="button" onclick="location.href='${url}'">리뷰 보기</button>
+                        <button type="button">내 책장 넣기</button>
+                    </div>
                     <img src="${thumbnail}" class="mr-3" alt="..." height="120">
                         <div class="media-body">
                             <h5 class="mt-0 mb-1">${title}</h5><h6>${authors}</h6>
