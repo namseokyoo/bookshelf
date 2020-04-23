@@ -61,6 +61,27 @@
                 }
             })
         }
+
+        function addShelf(){
+            let title = 'harry potter'
+            let start = '2020-04-23'
+            let url = 'https://google.com'
+            $.ajax({
+                method: "POST",
+                url: "/session_in",
+                data: {
+                    title:title,
+                    start:start,
+                    url:url
+                },
+                success: function(response){
+                    let event = response.event;
+                    console.log(event)
+                    
+                }
+            })
+            window.open('bookshelf')
+        }
     </script>
     <style>
         dt{
@@ -130,9 +151,9 @@
                     <div class="clearfix"> </div>
                 </div>
                 <div class="simpleCart_shelfItem">
-                    <form action="#" method="post">
-                        <button type="submit" class="w3ls-cart">내 책장에 넣기</button>
-                    </form>
+                    <a >
+                        <button type="button" class="w3ls-cart" onclick='addShelf()'>내 책장에 넣기</button>
+                    </a>
                 </div>
             </div>
             <div class="clearfix"> </div>

@@ -23,7 +23,6 @@
 
 	<script>
 
-
 		document.addEventListener('DOMContentLoaded', function () {
 			var calendarEl = document.getElementById('calendar');
 
@@ -34,7 +33,7 @@
 				eventClick: function (info) {
 					info.jsEvent.preventDefault();
 
-					if ( confirm('goto review page?')) {
+					if (confirm('goto review page?')) {
 						window.open(info.event.url);
 					}
 					else {
@@ -48,20 +47,16 @@
 				}
 
 			});
-			function listing() {
-				/*$.ajax({
+			/*function listing() {
+				$.ajax({
 					method: "POST",
-					url: "/review/",
+					url: "/session_in",
 					data: {},
 					success: function (response) {
-						let info = response.info;
-						console.log(info);
-						for (let i = 0; i < info.length; i++) {
-							let event = response.info[i];
-							calendar.addEvent(event);
-						}
+						let event = response.event;
+						
 					}
-				})*/
+				})
 				event = {
 					title: 'url',
 					start: '2020-04-05',
@@ -72,9 +67,9 @@
 			}
 
 
-			listing();
+			listing();*/
 
-			calendar.render();
+		calendar.render();
 		});
 
 		function click_remove(eventClickInfo) {
@@ -86,7 +81,6 @@
 			}
 
 		}
-
 
 
 	</script>
