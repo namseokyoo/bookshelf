@@ -89,7 +89,7 @@ def session_signin():
     start = request.args.get('start')
     url = request.args.get('url')
     print(session.sid)
-    session[title] = {'title':title, 'start':start, 'url':url}
+    session[''] = {'title':title, 'start':start, 'url':url}
     print(session)
     event = list(db.sessions.find({},{'_id':0}))
     return jsonify({'result':'success', 'event':event})
@@ -121,6 +121,11 @@ def video():
 def bookshelf():
    return render_template('fullcalendar.html')
 
+@app.route('/bookshelflist')
+def addShelf():
+    event = list(db.sessions.find({},{'_id':0}))
+    print(event)
+    return jsonify({'result':'success','event':event})
 
 @app.route('/info', methods=['POST'])
 def info():

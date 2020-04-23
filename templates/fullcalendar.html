@@ -22,6 +22,9 @@
 		crossorigin="anonymous"></script>
 
 	<script>
+		/*$(document).ready(function () {
+            listing(); 
+        })*/
 
 		document.addEventListener('DOMContentLoaded', function () {
 			var calendarEl = document.getElementById('calendar');
@@ -47,27 +50,34 @@
 				}
 
 			});
-			/*function listing() {
+			function listing() {
 				$.ajax({
-					method: "POST",
-					url: "/session_in",
+					method: "GET",
+					url: "/bookshelflist",
 					data: {},
 					success: function (response) {
 						let event = response.event;
-						
+						console.log(event);
+						console.log(event[0].books.title);
+						for (let i = 0; i < event[0].books.length; i++) {
+							title = event[0].books.title;
+							start = event[0].books.start;
+							url = event[0].books.url;
+							book={
+								title:title,
+								start:start,
+								url:url
+							}
+							calendar.addEvent(book)
+						}	
 					}
 				})
-				event = {
-					title: 'url',
-					start: '2020-04-05',
-					url: '/review'
-				}
-				calendar.addEvent(event);
-
+				
 			}
+		listing();
+			
 
-
-			listing();*/
+			
 
 		calendar.render();
 		});
@@ -81,6 +91,8 @@
 			}
 
 		}
+		
+
 
 
 	</script>
