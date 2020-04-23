@@ -132,7 +132,8 @@
                         books.thumbnail,
                         books.title,
                         books.authors,
-                        books.contents
+                        books.contents,
+                        books.url
                     )
                     }
                 }
@@ -175,8 +176,8 @@
                     <option value='ISBN'>ISBN</option>
                 </select>
               </div>
-            <input class="form-control mr-sm-2" id="searchbook" type="search" placeholder="제목, 저자명, ISBN"
-                aria-label="Search">
+            <input class="form-control mr-sm-2" id="searchbook" type="search" onkeyup="enterkey()" placeholder="제목, 저자명, ISBN"
+                aria-label="Search" >
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="search()">Search</button>
         </div>
     </div>
