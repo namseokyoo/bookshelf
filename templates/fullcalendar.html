@@ -58,19 +58,14 @@
 					success: function (response) {
 						let event = response.event;
 						console.log(event);
-						console.log(event[0].books.title);
-						for (let i = 0; i < event[0].books.length; i++) {
-							title = event[0].books.title;
-							start = event[0].books.start;
-							url = event[0].books.url;
-							book={
-								title:title,
-								start:start,
-								url:url
-							}
-							calendar.addEvent(book)
-						}	
+						book=event["0"].books.title;
+						console.log(book);
+						book={title:book.title,
+							start:'2020-04-23',
+							url:book.url}
+						calendar.addEvent(book)
 					}
+				
 				})
 				
 			}
