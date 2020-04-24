@@ -89,10 +89,11 @@ def welcome():
 def session_signin():
     title = request.args.get('title')
     url = request.args.get('url')
+    sid = session.sid
     print(session.sid)
-    session[title] = {'title':title, 'url':url}
+    session[title]= {'title':title, 'url':url}
     print(session)
-    event = list(db.sessions.find({},{'_id':0}))
+    event = list(db.sessions.find({'sid':sid},{'_id':0}))
     return jsonify({'result':'success', 'event':event})
 
 
@@ -135,7 +136,8 @@ def bookshelf():
 
 @app.route('/bookshelflist')
 def addShelf():
-    event = list(db.sessions.find({},{'_id':0}))
+    sid = session.sid
+    event = list(db.sessions.find({'sid':sid},{'_id':0}))
     print(event)
     return jsonify({'result':'success','event':event})
 
