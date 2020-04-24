@@ -53,7 +53,6 @@
             emptylist()
             bookinfo(bookurl);
             reviews(bookurl); // 화면 로딩시 리뷰 불러옴
-
         })
 
         function emptylist() {
@@ -105,6 +104,7 @@
 
                 }
             })
+            return bookinfo.title;
         }
 
         function make_review(title, contents, location, reviewer, review_date) {
@@ -140,6 +140,23 @@
             $("#date").text(date)
 
         }
+        function addShelf(){
+            let title = $('#booktitle').text();
+            let url = document.location.href;
+            $.ajax({
+                method: "POST",
+                url: "/session_in",
+                data: {
+                    title:title,
+                    url:url
+                },
+                success: function(response){
+                    let event = response.event;
+                    console.log(event)
+                }
+            })
+            window.open('bookshelf')
+        }
     </script>
     <style>
         dt {
@@ -149,6 +166,7 @@
         dd {
             margin-left: 3px;
         }
+        
     </style>
 </head>
 
@@ -212,10 +230,10 @@
                     <div class="clearfix"> </div>
                 </div>
                 <div class="simpleCart_shelfItem">
-                    <form action="#" method="post">
-                        <button type="submit" class="w3ls-cart">내 책장에 넣기</button>
-                    </form>
-                </div>
+                    <a>
+                        <button type="button" class="w3ls-cart" onclick="addShelf()">내 책장에 넣기</button>
+                    </a>
+                    
             </div>
             <div class="clearfix"> </div>
         </div>
