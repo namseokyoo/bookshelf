@@ -20,7 +20,6 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
-
 	<script>
 		/*$(document).ready(function () {
             listing(); 
@@ -58,36 +57,36 @@
 				var Year = dt.getFullYear();
 				var Month = "" + (dt.getMonth() + 1);
 				var Day = "" + dt.getDate();
-				if(Month.length < 2) Month = "0" + Month;
-    			if(Day.length < 2) Day = "0" + Day;
+				if (Month.length < 2) Month = "0" + Month;
+				if (Day.length < 2) Day = "0" + Day;
 				var start = Year + '-' + Month + '-' + Day;
 				console.log(start)
-					$.ajax({
-						method: "GET",
-						url: "/bookshelflist",
-						data: {},
-						success: function (response) {
-							let event = response.event;
-							console.log(event);
-							book = Object.values(event["0"].books);
-							console.log(book);
+				$.ajax({
+					method: "GET",
+					url: "/bookshelflist",
+					data: {},
+					success: function (response) {
+						let event = response.event;
+						console.log(event);
+						book = Object.values(event["0"].books);
+						console.log(book);
 
-							for(i =0; i<book.length; i++){
-								title = book[i].title
-								url = book[i].url
-								console.log(title)
-								booklist = {
-									title: title,
-									start: start,
-									url: url
-								}
-								calendar.addEvent(booklist)
+						for (i = 0; i < book.length; i++) {
+							title = book[i].title
+							url = book[i].url
+							console.log(title)
+							booklist = {
+								title: title,
+								start: start,
+								url: url
 							}
-							
+							calendar.addEvent(booklist)
 						}
 
-					})
-				
+					}
+
+				})
+
 			}
 
 
@@ -126,6 +125,8 @@
 </head>
 
 <body>
+	{% include 'header.html' %}
+	
 	<div class='content-wrap'>
 		<a href='/' style='color:black'>
 			<button type="button" class="btn btn-default">
