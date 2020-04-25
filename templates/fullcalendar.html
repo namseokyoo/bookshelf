@@ -38,15 +38,15 @@
 				eventClick: function (info) {
 					info.jsEvent.preventDefault();
 
-					if (confirm('goto review page?')) {
+					if (confirm('Go to review-page?')) {
 						window.open(info.event.url);
 					}
 					else {
-						if (confirm('delete?')) {
+						if (confirm('Delete?')) {
 							info.event.remove();
 						}
 						else {
-							alert('delete cancel')
+							alert('Delete cancel')
 						}
 					}
 				}

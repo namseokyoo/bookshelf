@@ -47,8 +47,7 @@
             bookurl = $('#bookreview_url').text();
             emptylist()
             bookinfo(bookurl);
-            reviews(bookurl);
-            // 화면 로딩시 리뷰 불러옴
+            reviews(bookurl); // 화면 로딩시 리뷰 불러옴
         })
 
         function emptylist() {
@@ -117,10 +116,12 @@
                         bookinfo.description,
                         bookinfo.descsrc
                     )
+                    rating(bookinfo.title)
 
                 }
             })
             return bookinfo.title;
+            
         }
 
         function make_review(title, contents, location, reviewer, date) {
@@ -185,22 +186,64 @@
         }
 
         function addShelf() {
+            var userInput = prompt('당신의 별점은? (0~5)')
             let title = $('#booktitle').text();
             let url = document.location.href;
             $.ajax({
                 method: "POST",
                 url: "/session_in",
                 data: {
-                    title: title,
-                    url: url
+                    title:title,
+                    url:url,
+                    rating:userInput
                 },
                 success: function (response) {
                     let event = response.event;
                     console.log(event)
                 }
             })
-            //window.open('bookshelf')
+            if (confirm('Go to shelf-page?')) {
+						window.open('/bookshelf');
+					}
+                    else {
+                        alert('저장완료!')
+                    }
         }
+        
+        function rating(title){
+            const inputBookTitle = title
+            console.log(inputBookTitle);
+            $.ajax({
+					method: "GET",
+				    url: "/bookshelflist",
+					data: {},
+					success: function (response) {
+						let event = response.event;
+						console.log(event);
+						bookList = Object.values(event["0"].books);
+                        const filteredBooks = bookList.filter(book => book.title === inputBookTitle);
+                        console.log(filteredBooks);
+
+                        ratingnum = filteredBooks[0].rating
+                        console.log(ratingnum);
+                        if(ratingnum === undefined){
+                            let starrating = `
+                                <dt>별점</dt>
+                                <dd>없음</dd>`
+                                $('#rating').append(starrating);
+                        }
+                        else{
+                            let starrating = `
+                                <dt>별점</dt>
+                                <dd>${ratingnum}</dd>`
+                                $('#rating').append(starrating);
+                        }           
+                    }
+                })
+            }
+            
+            
+        
     </script>
     <style>
         .videotitle {
@@ -237,19 +280,19 @@
             </div>
             <div class="col-md-8 single-right">
                 <h3 id='booktitle'></h3>
-                <div class="rating1">
-                    <span class="starRating">
+                <div class="rating1" id='rating'>
+                    <!--span class="starRating">
                         <input id="rating5" type="radio" name="rating" value="5">
                         <label for="rating5">5</label>
                         <input id="rating4" type="radio" name="rating" value="4">
                         <label for="rating4">4</label>
-                        <input id="rating3" type="radio" name="rating" value="3" checked>
+                        <input id="rating3" type="radio" name="rating" value="3" >
                         <label for="rating3">3</label>
                         <input id="rating2" type="radio" name="rating" value="2">
                         <label for="rating2">2</label>
                         <input id="rating1" type="radio" name="rating" value="1">
                         <label for="rating1">1</label>
-                    </span>
+                    </span-->
                 </div>
                 <div class="description">
                     <dl>
@@ -281,12 +324,13 @@
                     <div class="clearfix"> </div>
                 </div>
                 <div class="simpleCart_shelfItem">
-                    <a href='/bookshelf'>
+                    <a>
                         <button type="button" class="w3ls-cart" onclick="addShelf()">내 책장에 넣기</button>
                     </a>
 
-                </div>
-                <div class="clearfix"> </div>
+                    <a href='/bookshelf'>
+                        <button type="button" class="w3ls-cart" >내 책장가기</button>
+                    </a>
             </div>
         </div>
         <div class="additional_info">
