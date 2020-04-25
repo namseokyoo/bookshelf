@@ -1,9 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 
-
+# product_url = 'https://search.daum.net/search?w=bookpage&bookId=693034&q=%25EC%2598%25A4%25EC%25A7%2581+%25EB%2591%2590+%25EC%2582%25AC%25EB%259E%258C'
 def req_info(product_url):
-    # URL을 읽어서 HTML를 Data에 받아옴
+        # URL을 읽어서 HTML를 Data에 받아옴
     headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
     data = requests.get(product_url, headers=headers)
@@ -21,6 +21,14 @@ def req_info(product_url):
     bookinfo = soup.select('#tabContent > div > div > div > dl > dd')
     author = bookinfo[0].getText().strip()
 
+    # 책소개
+    bookinfo = soup.select('#tabContent > div > div > p.desc')
+    description = bookinfo[0].getText()
+
+    # 출처
+    bookinfo = soup.select('#tabContent > div > div > div > span.f_nb')
+    descsrc = bookinfo[0].getText()
+
     # 출판사/출간일
     bookinfo = soup.select('#tabContent > div > div > div > dl > dd ')
     company_date = bookinfo[1].getText()
@@ -37,13 +45,14 @@ def req_info(product_url):
         'author':author,
         'company':company,
         'date':date,  
-        'img':img  
+        'img':img, 
+        'description':description,
+        'descsrc':descsrc
     })
-    
+# print(info)
     return info
 
 
-# print (reviews_list)
 
 
 
