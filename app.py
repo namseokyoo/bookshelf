@@ -89,10 +89,11 @@ def welcome():
 def session_signin():
     title = request.args.get('title')
     url = request.args.get('url')
+    rating= request.args.get('rating')
     sid = session.sid
     print(session.sid)
-    session[title]= {'title':title, 'url':url}
-    print(session)
+    session[title]= {'title':title, 'url':url, 'rating':rating}
+    #print(session)
     event = list(db.sessions.find({'sid':sid},{'_id':0}))
     return jsonify({'result':'success', 'event':event})
 
@@ -114,7 +115,7 @@ def review():
 def bookinfo():
     infourl = request.form['bookurl']
     result = req_info(infourl)
-    print(result)
+    #print(result)
     return jsonify({'result': 'success', 'info': result})    
 
 
@@ -138,7 +139,7 @@ def bookshelf():
 def addShelf():
     sid = session.sid
     event = list(db.sessions.find({'sid':sid},{'_id':0}))
-    print(event)
+    #print(event)
     return jsonify({'result':'success','event':event})
 
 @app.route('/info', methods=['POST'])
