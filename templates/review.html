@@ -6,13 +6,12 @@
     <!-- for-mobile-apps -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Electronic Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-	SmartPhone Compatible web template, free web designs for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 	function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!-- //for-mobile-apps -->
     <!-- Custom Theme files -->
-    <link href="static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="static/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="static/css/fasthover.css" rel="stylesheet" type="text/css" media="all" />
     <!-- //Custom Theme files -->
@@ -260,6 +259,9 @@
         dd {
             margin-left: 3px;
         }
+        .thumb-image {
+            width :200px;
+        }
     </style>
 </head>
 
@@ -272,9 +274,11 @@
             <!-- 파라미터 받아오기 display:none -->
             <div id="bookreview_url" style="display:none">{{ bookurl }}</div>
             <!--  파라미터 받아오기 끝-->
+
             <div class="col-md-4 single-left">
-                <div class="thumb-image"> <img id="thumb-image" src="" data-imagezoom="true" class="img-responsive"
-                        alt=""> </div>
+                <div class="thumb-image">
+                    <img id="thumb-image" src="" data-imagezoom="true" class="img-responsive" alt=""> 
+                </div>
                 <!-- zooming-effect -->
                 <script src="static/js/imagezoom.js"></script>
                 <!-- //zooming-effect -->
