@@ -87,7 +87,7 @@
                 },
                 success: function (response) {
                     let videos = response.searchvideo;
-                    // console.log(videos)
+                    console.log(videos)
                     for (i = 0; i < videos.length; i++) {
                         const { title, videoId } = videos[i];
                         makeVideoList(title, videoId);
@@ -296,19 +296,22 @@
                 </div>
                 <div class="description">
                     <dl>
-                        <dt>저자 </dt>
+                        <dt>저자
+                            &nbsp</dt>
                         <dd id="author"></dd>
                     </dl>
                 </div>
                 <div class="description">
                     <dl>
-                        <dt>출판사 </dt>
+                        <dt>출판사
+                            &nbsp</dt>
                         <dd id="company"></dd>
                     </dl>
                 </div>
                 <div class="description">
                     <dl>
-                        <dt>출간일 </dt>
+                        <dt>출간일
+                            &nbsp</dt>
                         <dd id="date"></dd>
                     </dl>
                 </div>
