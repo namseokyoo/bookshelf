@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-
+# product_url='https://search.daum.net/search?w=bookpage&bookId=693034&q=%25EC%2598%25A4%25EC%25A7%2581+%25EB%2591%2590+%25EC%2582%25AC%25EB%259E%258C'
 def req_review(product_url):
     # URL을 읽어서 HTML를 Data에 받아옴
     headers = {
@@ -38,9 +38,9 @@ def req_review(product_url):
         if reviewer_tag is not None:  
             reviewer = reviewer_tag.text
         #날짜
-        date_tag = review.select_one('div > div > span.txt_info')
+        date_tag = review.select('div > div > span.txt_info')
         if date_tag is not None:  
-            review_date = date_tag.text
+            review_date = date_tag[1].text
 
 
         reviews_list.append({
@@ -53,7 +53,8 @@ def req_review(product_url):
   
     return reviews_list
 
-# print (reviews_list)
+# print (reviews_list[4])
+
 
 
 

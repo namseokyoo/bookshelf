@@ -15,7 +15,7 @@
     zoomviewposition:'right',
     zoomviewmargin:10,
     zoomviewborder:'none',
-    magnification:1.925
+    magnification: 1.925
   };
 
   var imagezoomCursor,imagezoomView,settings,imageWidth,imageHeight,offset;
