@@ -20,7 +20,7 @@ from searchvideo import search_video
 load_dotenv()
 KAKAO_API_KEY = os.getenv('KAKAO_API_KEY')
 
-client = MongoClient('localhost', 27017)
+client = MongoClient('0.0.0.0', 27017)
 db = client.session
 
 app = Flask(__name__)
@@ -166,4 +166,5 @@ def info():
 
 
 if __name__ == '__main__':
-    app.run('localhost', 5005, debug=True)
+    port = os.getenv('PORT', 5005)
+    app.run('0.0.0.0', port,  debug=True)
