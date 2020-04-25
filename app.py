@@ -19,8 +19,21 @@ from searchvideo import search_video
 
 load_dotenv()
 KAKAO_API_KEY = os.getenv('KAKAO_API_KEY')
+HOST = os.getenv('HOST', '0.0.0.0')
+USERNAME = os.getenv('USERNAME')
+PASSWORD = os.getenv('PASSWORD')
 
-client = MongoClient('0.0.0.0', 27017)
+# >>> client = MongoClient('example.com',
+# …                      username='user',
+# …                      password='password',
+# …                      authSource='the_database',
+# …                      authMechanism='SCRAM-SHA-1')
+
+client = MongoClient(HOST,
+                    27017,
+                    username=USERNAME,
+                    password=PASSWORD,
+                    authMechanism='SCRAM-SHA-1')
 db = client.session
 
 app = Flask(__name__)
@@ -36,7 +49,7 @@ class MongoSession(CallbackDict, SessionMixin):
 class MongoSessinoInterface(SessionInterface):
     def __init__(self, host='localhost', port=27017,\
                 db='', collection='sessions'):
-        client = MongoClient(host, port)
+        # client = MongoClient(host, port) 
         self.store = client[db][collection]
 
     def open_session(self, app, request):
