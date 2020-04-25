@@ -45,8 +45,8 @@ class MongoSessinoInterface(SessionInterface):
             stored_session = self.store.find_one({'sid': sid})
             if stored_session:
                 if stored_session.get('expiration') > datetime.utcnow():
-                    return MongoSession(initial=stored_session['books'],
-                                        sid=stored_session['sid'])
+                    return MongoSession(initial=stored_session.get('books',None),
+                                        sid=stored_session.get('sid', None))
         sid = str(uuid4())
         return MongoSession(sid=sid)
 
@@ -124,9 +124,9 @@ def review_page():
     return render_template('review.html', bookurl=book_url.decode('ascii'))
 
 
-@app.route('/searchvideo')
+@app.route('/searchvideo', methods=['POST'])
 def video():
-    options = '피프티 피플'
+    options = request.form['booktitle']
     result = search_video(options)
     return jsonify({'result': 'success', 'searchvideo': result})
 

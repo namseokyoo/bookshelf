@@ -15,7 +15,7 @@ DEVELOPER_KEY = os.getenv('YOUTUBE_API_KEY')
 YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
 
-
+# options = "오직 두 사람"
 def search_video(options):
     youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
                     developerKey=DEVELOPER_KEY)
@@ -25,20 +25,29 @@ def search_video(options):
     search_response = youtube.search().list(
             q=options,  # options.q,
             part="snippet",  # "id,snippet",
-            maxResults=5  # options.max_results
+            maxResults=9  # options.max_results
     ).execute()
 
-    return search_response
-    # videos = []
-    # channels = []
-    # playlists = []
+    # print(search_response)
+        
 
-    # Add each result to the appropriate list, and then display the lists of
-    # matching videos, channels, and playlists.
-    # for search_result in search_response.get("items", []):
-    #     if search_result["id"]["kind"] == "youtube#video":
-    #         videos.append("%s (%s)" % (search_result["snippet"]["title"],
-    #                                 search_result["id"]["videoId"]))
+    videos = []
+        # channels = []
+        # playlists = []
+
+        # Add each result to the appropriate list, and then display the lists of
+        # matching videos, channels, and playlists.
+    for search_result in search_response.get("items", []):
+        if search_result["id"]["kind"] == "youtube#video":
+            # videos.append("%s (%s)" % (search_result["snippet"]["title"],
+            #                         search_result["id"]["videoId"]))
+            videos.append({
+                'title':search_result["snippet"]["title"],
+                'videoId':search_result["id"]["videoId"]
+            })
+
+    # print(videos)
+    return videos
     # elif
     # elif search_result["id"]["kind"] == "youtube#channel":
     #     channels.append("%s (%s)" % (search_result["snippet"]["title"],
