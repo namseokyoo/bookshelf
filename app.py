@@ -39,61 +39,61 @@ db = client.session
 app = Flask(__name__)
 
 
-class MongoSession(CallbackDict, SessionMixin):
-    def __init__(self, initial=None, sid=None):
-        CallbackDict.__init__(self, initial)
-        self.sid = sid
-        self.modified = False
+# class MongoSession(CallbackDict, SessionMixin):
+#     def __init__(self, initial=None, sid=None):
+#         CallbackDict.__init__(self, initial)
+#         self.sid = sid
+#         self.modified = False
 
 
-class MongoSessinoInterface(SessionInterface):
-    def __init__(self, host='localhost', port=27017,\
-                db='', collection='sessions'):
-        # client = MongoClient(host, port) 
-        self.store = client[db][collection]
+# class MongoSessinoInterface(SessionInterface):
+#     def __init__(self, host='localhost', port=27017,\
+#                 db='', collection='sessions'):
+#         # client = MongoClient(host, port) 
+#         self.store = client[db][collection]
 
-    def open_session(self, app, request):
-        sid = request.cookies.get(app.session_cookie_name)
-        if sid:
-            stored_session = self.store.find_one({'sid': sid})
-            if stored_session:
-                if stored_session.get('expiration') > datetime.utcnow():
-                    return MongoSession(initial=stored_session.get('books',None),
-                                        sid=stored_session.get('sid', None))
-        sid = str(uuid4())
-        return MongoSession(sid=sid)
+#     def open_session(self, app, request):
+#         sid = request.cookies.get(app.session_cookie_name)
+#         if sid:
+#             stored_session = self.store.find_one({'sid': sid})
+#             if stored_session:
+#                 if stored_session.get('expiration') > datetime.utcnow():
+#                     return MongoSession(initial=stored_session.get('books',None),
+#                                         sid=stored_session.get('sid', None))
+#         sid = str(uuid4())
+#         return MongoSession(sid=sid)
 
-    def save_session(self, app, session, response):
-        domain = self.get_cookie_domain(app)
-        if session is None:
-            response.delete_cookie(app.session_cookie_name, domain=domain)
-            return
-        if  self.get_expiration_time(app, session):
-            expiration = self.get_expiration_time(app, session)
-        else:
-            expiration = datetime.utcnow() +  timedelta(hours=1)
+#     def save_session(self, app, session, response):
+#         domain = self.get_cookie_domain(app)
+#         if session is None:
+#             response.delete_cookie(app.session_cookie_name, domain=domain)
+#             return
+#         if  self.get_expiration_time(app, session):
+#             expiration = self.get_expiration_time(app, session)
+#         else:
+#             expiration = datetime.utcnow() +  timedelta(hours=1)
 
-        self.store.update({'sid': session.sid}, {
-                            'sid': session.sid,
-                            'books': session,
-                            'expiration': expiration
-                        }, True)
-        response.set_cookie(app.session_cookie_name,
-                            session.sid,
-                            expires=self.get_expiration_time(app, session),
-                            httponly=True, domain=domain)
+#         self.store.update({'sid': session.sid}, {
+#                             'sid': session.sid,
+#                             'books': session,
+#                             'expiration': expiration
+#                         }, True)
+#         response.set_cookie(app.session_cookie_name,
+#                             session.sid,
+#                             expires=self.get_expiration_time(app, session),
+#                             httponly=True, domain=domain)
 
 
-app.session_interface = MongoSessinoInterface(db='session')
-app.config.update(
-    SESSION_COOKIE_NAME='flask_session'
-)
+# app.session_interface = MongoSessinoInterface(db='session')
+# app.config.update(
+#     SESSION_COOKIE_NAME='flask_session'
+# )
 
 
 @app.route('/')
 def welcome():
     res = make_response(render_template('index.html'))
-    res.set_cookie(app.session_cookie_name, session.sid)
+    # res.set_cookie(app.session_cookie_name, session.sid)
     return res
     
 

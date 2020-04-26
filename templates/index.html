@@ -51,6 +51,7 @@
             top: 50%;
             left: 50%;
             display: block;
+            z-index: 2;
         }
 
         #searchbook {
@@ -82,17 +83,21 @@
                 thumbnail = 'https://search1.kakaocdn.net/thumb/C116x164.q85/?fname=http://search1.daumcdn.net/search/statics/common/img/noimg/4grid.png'
             }
             let bookcard =
-                `<li class="media">
+            
+                `
+                 <li class="media" style="margin-down:2px">
                     <div class="media_button">
-                        <button type="button" onclick="location.href='/review?${encodeURI(url)}'">리뷰 보기</button>
-                        <button type="button">내 책장 넣기</button>
-                    </div>
+                        <button class="btn btn-outline-success my-2 my-sm-0" style="background-color:white; color:black" type="button" onclick="location.href='/review?${encodeURI(url)}'">리뷰 보기</button>
+                </div>
                         <img src="${thumbnail}" class="mr-3" alt="..." height="120">
                         <div class="media-body">
-                            <h5 class="mt-0 mb-1">${title}</h5><h6>${authors}</h6>
+                            <h5 class="mt-0 mb-1" style="font-weight:bold">${title}</h5><h7 style="color: blue">${authors}</h7><br>
                             ${contents}
                         </div>
-                </li>`
+                </li>
+                <hr>`
+                
+                
 
 
             $('#bookresult').append(bookcard);
@@ -145,7 +150,7 @@
 
 <body>
     {% include 'header.html' %}
-    
+
     <div class="content-wrap">
         <a href='/bookshelf'>
             <button type="button" class="btn btn-default">
