@@ -127,18 +127,13 @@
                 `<div class="additional_info_sub_grids">
                     <div class="col-xs-2 additional_info_sub_grid_left">
                             <h4>${reviewer}</h4>
-                            <h5>${date}</h5>
-                            <h6>${location}</h6>
+                            <h7>${location}</h7>
+                            <h5 style='font-style: italic;'>${date}</h5>
                     </div>
                 <div class="col-xs-10 additional_info_sub_grid_right">
                 <div class="additional_info_sub_grid_rightl">
                     <p>${contents}</p>
                 </div>
-                <div class="clearfix"> 
-                    </div>
-                </div>
-                <div class="clearfix"> 
-                    </div>
                 </div>`
 
             $('#reviews-list').append(reviewlist);
@@ -244,9 +239,18 @@
 
     </script>
     <style>
+        .additional_info_sub_grid_right{
+            display:inline-block;
+            margin-left :115px
+        }
+
+        .additional_info_sub_grid_left{
+            float: left;;
+            width: 110px;
+        }
         .videotitle {
             overflow: hidden;
-            text-overflow: ellipsis;
+            text-overflow:clip;
             white-space: nowrap;
             width: 100%;
             height: 33px;
@@ -260,21 +264,25 @@
             margin-left: 3px;
         }
 
-        .thumb-image {
-            width: 200px;
+        #thumb-image {
+            position:relative;
+            top: 40px;
+            left: 30px;
+            transform:scale(1.5);             /*  default */
         }
 
         .single-left {
             float: left;
             width: 200px;
-            height: 100px;
+            height: 400px;
         }
 
         .single-right {
             display: inline-block;
-            width: 200px;
+            width: 500px;
             height: 100px;
-            margin-left: 10px;
+            margin-left: 20px;
+            
         }
     </style>
 </head>
@@ -288,7 +296,7 @@
             <!-- 파라미터 받아오기 display:none -->
             <div id="bookreview_url" style="display:none">{{ bookurl }}</div>
             <!--  파라미터 받아오기 끝-->
-
+            
             <div class="col-md-4 single-left">
                 <div class="thumb-image">
                     <img id="thumb-image" src="" data-imagezoom="true" class="img-responsive" alt="">
@@ -298,36 +306,23 @@
                 <!-- //zooming-effect -->
             </div>
             <div class="col-md-8 single-right">
-                <h3 id='booktitle'></h3>
-                <div class="rating1" id='rating'>
-                    <!--span class="starRating">
-                        <input id="rating5" type="radio" name="rating" value="5">
-                        <label for="rating5">5</label>
-                        <input id="rating4" type="radio" name="rating" value="4">
-                        <label for="rating4">4</label>
-                        <input id="rating3" type="radio" name="rating" value="3" >
-                        <label for="rating3">3</label>
-                        <input id="rating2" type="radio" name="rating" value="2">
-                        <label for="rating2">2</label>
-                        <input id="rating1" type="radio" name="rating" value="1">
-                        <label for="rating1">1</label>
-                    </span-->
-                </div>
-                <div class="description">
+                <h2 id='booktitle' style='font-weight: bold;'></h2>
+               
+                <div class="description" style="height:10px">
                     <dl>
                         <dt>저자
                             &nbsp</dt>
                         <dd id="author"></dd>
                     </dl>
                 </div>
-                <div class="description">
+                <div class="description" style="float: left; width:180px;height:1.2rem">
                     <dl>
                         <dt>출판사
                             &nbsp</dt>
                         <dd id="company"></dd>
                     </dl>
                 </div>
-                <div class="description">
+                <div class="description" style='display: inline-block; width:180px;height:1.2rem'>
                     <dl>
                         <dt>출간일
                             &nbsp</dt>
@@ -338,8 +333,8 @@
                 <div class="occasional">
                     <div class="colr ert">
                         <div class="check">
-                            <h5>내 책상 보유 여부</h5>
-                            <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>보유</label>
+                            <h5 style="float: left; width:180px;height:1.2rem">내 책상 보유 여부</h5>
+                            <label class="checkbox"style='display: inline-block;width:180px'><input type="checkbox" name="checkbox" checked=""><i> </i>보유</label>
                         </div>
                     </div>
 

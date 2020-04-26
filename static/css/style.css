@@ -4,17 +4,19 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
+
+
 html, body{
     font-size: 100%;
 	background:	#fff;
-	font-family:'Open Sans', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 p{
 	margin:0;
 	font-size:14px;
 }
 h1,h2,h3,h4,h5,h6{
-	font-family: 'Glegoo', serif;
+	font-family: 'Noto Sans KR', sans-serif;
 	margin:0;
 }
 ul,label{
@@ -631,8 +633,8 @@ li.w3pages .dropdown-menu > li > a:hover{
 .nav-tabs > li > a {
     font-size: 1em;
     color: #212121;
-    font-family: 'Glegoo', serif;
-    text-transform: uppercase;
+	font-family: 'Noto Sans KR', sans-serif;
+	text-transform: uppercase;
     letter-spacing: 1px;
 	border-radius: 0;
 	border:none;
@@ -1654,8 +1656,8 @@ h3.other-nw {
     color:#ffffff;
     line-height: 1.5em;
     padding: 3.5em 0 0 4em;
-    font-family: 'Open Sans', sans-serif;
-    letter-spacing: 4px;
+	font-family: 'Noto Sans KR', sans-serif;
+	letter-spacing: 4px;
 }
 .banner1 h2 span,.banner2 h2 span,.banner3 h2 span,.banner4 h2 span,.banner5 h2 span,.banner6 h2 span,.banner7 h2 span,.banner8 h2 span,.banner9 h2 span{
 	display: block;
@@ -2573,8 +2575,8 @@ h2.typoh2{
 	font-size:.8em;
 	margin:.6em 0 0;
 	color:#212121;
-	font-family: 'Open Sans', sans-serif;
-    font-weight: 500;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 500;
 }
 .wthree_team_grids p{
 	width: 65%;
@@ -2707,7 +2709,7 @@ h2.typoh2{
 	margin-bottom: 1em;
 }
 .description{
-	margin:2em 0;
+	margin:1.2em 0;
 }
 .description h5{
 	color: #3c43a4;
@@ -2729,7 +2731,7 @@ h2.typoh2{
 	margin:0 0 1em;
 }
 .occasional {
-    margin:3em 0;
+    margin:1em 0;
 }
 .color-quality-right {
 	float: left;
@@ -2743,7 +2745,6 @@ h2.typoh2{
 	font-size:14px;
 	font-weight:500;
 	color:#999;
-	margin: 1.5em 0 0 0em;
 }
 .checkbox {
     position: relative;
@@ -2878,7 +2879,6 @@ div#horizontalTab1 ul {
 }
 .additional_info_sub_grid_rightl{
 	float:left;
-	width: 70%;
 }
 .additional_info_sub_grid_rightr{
 	float:right;
