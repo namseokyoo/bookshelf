@@ -93,7 +93,7 @@ app.config.update(
 @app.route('/')
 def welcome():
     res = make_response(render_template('index.html'))
-    # res.set_cookie(app.session_cookie_name, session.sid)
+    res.set_cookie(app.session_cookie_name, session.sid)
     return res
     
 
