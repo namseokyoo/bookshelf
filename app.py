@@ -103,9 +103,10 @@ def session_signin():
     title = request.args.get('title')
     url = request.args.get('url')
     rating= request.args.get('rating')
+    start = request.args.get('start')
     sid = session.sid
     print(session.sid)
-    session[title]= {'title':title, 'url':url, 'rating':rating}
+    session[title]= {'title':title, 'url':url, 'rating':rating, 'start':start}
     #print(session)
     event = list(db.sessions.find({'sid':sid},{'_id':0}))
     return jsonify({'result':'success', 'event':event})
