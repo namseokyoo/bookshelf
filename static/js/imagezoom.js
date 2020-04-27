@@ -11,11 +11,11 @@
     opacity:0.5,
     cursor:'crosshair',
     zindex:2147483647,
-    zoomviewsize:[480,395],
+    zoomviewsize:[232,328],
     zoomviewposition:'right',
-    zoomviewmargin:10,
+    zoomviewmargin:70,
     zoomviewborder:'none',
-    magnification: 1.925
+    magnification: 2
   };
 
   var imagezoomCursor,imagezoomView,settings,imageWidth,imageHeight,offset;
@@ -73,7 +73,7 @@
           'opacity':settings.opacity,
           'cursor':settings.cursor
         });
-        $(imagezoomCursor.selector).css({'top':posY-(cursorSize[1]/2),'left':posX});
+        $(imagezoomCursor.selector).css({'top':posY-(cursorSize[1]),'left':posX});
         $(document).on('mousemove',document.body,methods.cursorPos);
       });
     },
