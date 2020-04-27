@@ -1,5 +1,5 @@
 #!/bin/bash
-PORT=80
+PORT=5000
 
 function start_server(){
     echo "Start server on port ${PORT}"
