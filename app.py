@@ -71,7 +71,7 @@ class MongoSessinoInterface(SessionInterface):
         if  self.get_expiration_time(app, session):
             expiration = self.get_expiration_time(app, session)
         else:
-            expiration = datetime.utcnow() +  timedelta(hours=1)
+            expiration = datetime.utcnow() +  timedelta(days=180)
 
         self.store.update({'sid': session.sid}, {
                             'sid': session.sid,
