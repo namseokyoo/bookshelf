@@ -226,30 +226,28 @@
                     const filteredBooks = bookList.filter(book => book.title === inputBookTitle);
                     console.log(filteredBooks);
 
-                    if (filteredBooks !== []) {
-                        ratingnum = filteredBooks[0].rating
-                        console.log(ratingnum);
-                        let check = `
-                        <h5 style="float: left; width:180px;height:1.2rem">내 책상 보유 여부</h5>
-                        <label class="checkbox"style='display: inline-block;width:180px'><input type="checkbox" name="checkbox" checked='' onclick='return false;'><i> </i>보유</label>`
-                        $('#Inshelf').append(check);
-                        if (ratingnum === null) {
-                            let starrating = `
-                                    <dt>내 별점</dt>
-                                    <dd> 없음</dd>`
-                            $('#rating').append(starrating);
-                        }
-                        else {
-                            let starrating = `
-                                    <dt>내 별점</dt>
-                                    <dd> ${ratingnum}</dd>`
-                            $('#rating').append(starrating);
-                        }
-                    }
-                    else {
+                    if (filteredBooks === []) {
                         let check = `
                         <h5 style="float: left; width:180px;height:1.2rem">내 책상 보유 여부</h5>
                         <label class="checkbox"style='display: inline-block;width:180px'><input type="checkbox" name="checkbox" onclick='return false;'><i> </i>보유</label>`
+                        $('#Inshelf').append(check);
+
+                        let starrating = `
+                                    <dt>내 별점</dt>
+                                    <dd> 없음</dd>`
+                        $('#rating').append(starrating);
+
+                    }
+                    else {
+                        ratingnum = filteredBooks[0].rating
+                        console.log(ratingnum);
+                        let starrating = `
+                                    <dt>내 별점</dt>
+                                    <dd> ${ratingnum}</dd>`
+                        $('#rating').append(starrating);
+                        let check = `
+                        <h5 style="float: left; width:180px;height:1.2rem">내 책상 보유 여부</h5>
+                        <label class="checkbox"style='display: inline-block;width:180px'><input type="checkbox" name="checkbox" checked='' onclick='return false;'><i> </i>보유</label>`
                         $('#Inshelf').append(check);
                     }
                 }
@@ -357,7 +355,7 @@
                 <div class="occasional">
                     <div class="colr ert">
                         <div class="check" id='Inshelf'>
-                            
+
                         </div>
                     </div>
 
