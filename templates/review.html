@@ -182,17 +182,26 @@
             var userInput = prompt('당신의 별점은? (0~5)')
             let title = $('#booktitle').text();
             let url = document.location.href;
+            var dt = new Date();
+            var Year = dt.getFullYear();
+            var Month = "" + (dt.getMonth() + 1);
+            var Day = "" + dt.getDate();
+            if (Month.length < 2) Month = "0" + Month;
+            if (Day.length < 2) Day = "0" + Day;
+            var start = Year + '-' + Month + '-' + Day;
             $.ajax({
                 method: "POST",
                 url: "/session_in",
                 data: {
                     title: title,
                     url: url,
+                    start: start,
                     rating: userInput
                 },
                 success: function (response) {
                     let event = response.event;
                     console.log(event)
+
                 }
             })
             if (confirm('Go to shelf-page?')) {
@@ -217,19 +226,33 @@
                     const filteredBooks = bookList.filter(book => book.title === inputBookTitle);
                     console.log(filteredBooks);
 
-                    ratingnum = filteredBooks[0].rating
-                    console.log(ratingnum);
-                    if (ratingnum === undefined) {
+                    if (filteredBooks.length === 0) {
+                        let check = `
+                        <h5 style="float: left; width:180px;height:1.2rem">내 책상 보유 여부</h5>
+                        <label class="checkbox"style='display: inline-block;width:180px'><input type="checkbox" name="checkbox" onclick='return false;'><i> </i>보유</label>`
+                        $('#Inshelf').append(check);
+
                         let starrating = `
-                                <dt>별점</dt>
-                                <dd>없음</dd>`
+                                    <dl>
+                                    <dt>내 별점</dt>
+                                    <dd> 없음</dd>
+                                    </dl>`
                         $('#rating').append(starrating);
+
                     }
                     else {
+                        ratingnum = filteredBooks[0].rating
+                        console.log(ratingnum);
                         let starrating = `
-                                <dt>별점</dt>
-                                <dd>${ratingnum}</dd>`
+                                    <dl>
+                                    <dt>내 별점</dt>
+                                    <dd> ${ratingnum}</dd>
+                                    </dl>`
                         $('#rating').append(starrating);
+                        let check = `
+                        <h5 style="float: left; width:180px;height:1.2rem">내 책상 보유 여부</h5>
+                        <label class="checkbox"style='display: inline-block;width:180px'><input type="checkbox" name="checkbox" checked='' onclick='return false;'><i> </i>보유</label>`
+                        $('#Inshelf').append(check);
                     }
                 }
             })
@@ -239,18 +262,20 @@
 
     </script>
     <style>
-        .additional_info_sub_grid_right{
-            display:inline-block;
-            margin-left :115px
+        .additional_info_sub_grid_right {
+            display: inline-block;
+            margin-left: 115px
         }
 
-        .additional_info_sub_grid_left{
-            float: left;;
+        .additional_info_sub_grid_left {
+            float: left;
+            ;
             width: 110px;
         }
+
         .videotitle {
             overflow: hidden;
-            text-overflow:clip;
+            text-overflow: clip;
             white-space: nowrap;
             width: 100%;
             height: 33px;
@@ -265,10 +290,11 @@
         }
 
         #thumb-image {
-            position:relative;
+            position: relative;
             top: 40px;
             left: 30px;
-            transform:scale(1.5);             /*  default */
+            transform: scale(1.5);
+            /*  default */
         }
 
         .single-left {
@@ -282,7 +308,7 @@
             width: 500px;
             height: 100px;
             margin-left: 20px;
-            
+
         }
     </style>
 </head>
@@ -296,7 +322,7 @@
             <!-- 파라미터 받아오기 display:none -->
             <div id="bookreview_url" style="display:none">{{ bookurl }}</div>
             <!--  파라미터 받아오기 끝-->
-            
+
             <div class="col-md-4 single-left">
                 <div class="thumb-image">
                     <img id="thumb-image" src="" data-imagezoom="true" class="img-responsive" alt="">
@@ -307,7 +333,7 @@
             </div>
             <div class="col-md-8 single-right">
                 <h2 id='booktitle' style='font-weight: bold;'></h2>
-               
+
                 <div class="description" style="height:10px">
                     <dl>
                         <dt>저자
@@ -332,9 +358,8 @@
 
                 <div class="occasional">
                     <div class="colr ert">
-                        <div class="check">
-                            <h5 style="float: left; width:180px;height:1.2rem">내 책상 보유 여부</h5>
-                            <label class="checkbox"style='display: inline-block;width:180px'><input type="checkbox" name="checkbox" checked=""><i> </i>보유</label>
+                        <div class="check" id='Inshelf'>
+
                         </div>
                     </div>
 
@@ -344,10 +369,8 @@
                     <a>
                         <button type="button" class="w3ls-cart" onclick="addShelf()">내 책장에 넣기</button>
                     </a>
-
-                    <a href='/bookshelf'>
-                        <button type="button" class="w3ls-cart">내 책장가기</button>
-                    </a>
+                    <div id='rating' class="description" style='display: inline-block; width:180px;height:1.2rem'></div>
+                    
                 </div>
             </div>
             <div class="additional_info">
