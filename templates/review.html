@@ -233,8 +233,10 @@
                         $('#Inshelf').append(check);
 
                         let starrating = `
+                                    <dl>
                                     <dt>내 별점</dt>
-                                    <dd> 없음</dd>`
+                                    <dd> 없음</dd>
+                                    </dl>`
                         $('#rating').append(starrating);
 
                     }
@@ -242,8 +244,10 @@
                         ratingnum = filteredBooks[0].rating
                         console.log(ratingnum);
                         let starrating = `
+                                    <dl>
                                     <dt>내 별점</dt>
-                                    <dd> ${ratingnum}</dd>`
+                                    <dd> ${ratingnum}</dd>
+                                    </dl>`
                         $('#rating').append(starrating);
                         let check = `
                         <h5 style="float: left; width:180px;height:1.2rem">내 책상 보유 여부</h5>
@@ -365,10 +369,8 @@
                     <a>
                         <button type="button" class="w3ls-cart" onclick="addShelf()">내 책장에 넣기</button>
                     </a>
-
-                    <a href='/bookshelf'>
-                        <button type="button" class="w3ls-cart">내 책장가기</button>
-                    </a>
+                    <div id='rating' class="description" style='display: inline-block; width:180px;height:1.2rem'></div>
+                    
                 </div>
             </div>
             <div class="additional_info">
