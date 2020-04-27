@@ -230,8 +230,8 @@
                         ratingnum = filteredBooks[0].rating
                         console.log(ratingnum);
                         let check = `
-                    <h5 style="float: left; width:180px;height:1.2rem">내 책상 보유 여부</h5>
-                            <label class="checkbox"style='display: inline-block;width:180px'><input type="checkbox" name="checkbox" checked='' onclick='return false;'><i> </i>보유</label>`
+                        <h5 style="float: left; width:180px;height:1.2rem">내 책상 보유 여부</h5>
+                        <label class="checkbox"style='display: inline-block;width:180px'><input type="checkbox" name="checkbox" checked='' onclick='return false;'><i> </i>보유</label>`
                         $('#Inshelf').append(check);
                         if (ratingnum === null) {
                             let starrating = `
@@ -249,7 +249,7 @@
                     else {
                         let check = `
                         <h5 style="float: left; width:180px;height:1.2rem">내 책상 보유 여부</h5>
-                        <label class="checkbox"style='display: inline-block;width:180px'><input type="checkbox" name="checkbox" checked='' onclick='return false;'><i> </i>보유</label>`
+                        <label class="checkbox"style='display: inline-block;width:180px'><input type="checkbox" name="checkbox" onclick='return false;'><i> </i>보유</label>`
                         $('#Inshelf').append(check);
                     }
                 }
@@ -357,9 +357,7 @@
                 <div class="occasional">
                     <div class="colr ert">
                         <div class="check" id='Inshelf'>
-                            <h5 style="float: left; width:180px;height:1.2rem">내 책상 보유 여부</h5>
-                            <label class="checkbox" style='display: inline-block;width:180px'><input type="checkbox"
-                                    name="checkbox" onclick='return false;'><i> </i>보유</label>
+                            
                         </div>
                     </div>
 
