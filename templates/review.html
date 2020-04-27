@@ -234,8 +234,7 @@
 
                         let starrating = `
                                     <dl>
-                                    <dt>내 <img src='static/images/starr.png' width='70px', height='70px'/></dt>
-                                    <dd> 없음</dd>
+                                    <dt> <img src='static/images/starr.png' width='70px', height='70px'/>없음</dt>
                                     </dl>`
                         $('#rating').append(starrating);
 
@@ -363,18 +362,17 @@
                     </div>
 
                 </div>
-                <div class="simpleCart_shelfItem">
-                    <div class="btn">
-                        <button type="button" class="w3ls-cart" onclick="addShelf()">내 책장에 넣기</button>
-                    </div>
-                    <div id='rating' class="description" style='display: inline-block; width:180px'></div>
-
-                </div>
+		 <div id='rating' style='display: inline-block; width:180px; margin-left:3px'></div>
+		 <div class="simpleCart_shelfItem">
+			 <div class="btn">
+			 <button type="button" class="w3ls-cart" onclick="addShelf()">내 책장에 넣기</button>
+		</div>
+		 </div>
             </div>
             <div class="additional_info">
                 <div class="container">
                     <div class="sap_tabs">
-                        <div id="horizontalTab1" style="display: block; width: 100%; margin: 0px;">
+                        <div id="horizontalTab1" style="display: block; width: 100%; margin-left: 3px;">
                             <ul>
                                 <li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>책 소개</span>
                                 </li>
