@@ -85,7 +85,7 @@
                 },
                 success: function (response) {
                     let videos = response.searchvideo;
-                    console.log(videos)
+                    // console.log(videos)
                     for (i = 0; i < videos.length; i++) {
                         const { title, videoId } = videos[i];
                         makeVideoList(title, videoId);
@@ -200,7 +200,7 @@
                 },
                 success: function (response) {
                     let event = response.event;
-                    console.log(event)
+                    // console.log(event)
 
                 }
             })
@@ -221,10 +221,10 @@
                 data: {},
                 success: function (response) {
                     let event = response.event;
-                    console.log(event);
+                    // console.log(event);
                     bookList = Object.values(event["0"].books);
                     const filteredBooks = bookList.filter(book => book.title === inputBookTitle);
-                    console.log(filteredBooks);
+                    // console.log(filteredBooks);
 
                     if (filteredBooks.length === 0) {
                         let check = `
@@ -242,7 +242,7 @@
                     }
                     else {
                         ratingnum = filteredBooks[0].rating
-                        console.log(ratingnum);
+                        // console.log(ratingnum);
                         let starrating = `
                                     <dl>
                                     <dt>내 별점</dt>
@@ -269,7 +269,6 @@
 
         .additional_info_sub_grid_left {
             float: left;
-            ;
             width: 110px;
         }
 
@@ -300,12 +299,12 @@
         .single-left {
             float: left;
             width: 200px;
-            height: 400px;
+            height: 300px;
         }
 
         .single-right {
             display: inline-block;
-            width: 500px;
+            width: auto;
             height: 100px;
             margin-left: 20px;
 
@@ -357,20 +356,19 @@
                 </div>
 
                 <div class="occasional">
-                    <div class="colr ert">
+                    <div class="colrert">
                         <div class="check" id='Inshelf'>
-
+                            <!-- 별점 있을 시, 별점 표기 -->
                         </div>
                     </div>
 
-                    <div class="clearfix"> </div>
                 </div>
                 <div class="simpleCart_shelfItem">
-                    <a>
+                    <div class="btn">
                         <button type="button" class="w3ls-cart" onclick="addShelf()">내 책장에 넣기</button>
-                    </a>
-                    <div id='rating' class="description" style='display: inline-block; width:180px;height:1.2rem'></div>
-                    
+                    </div>
+                    <div id='rating' class="description" style='display: inline-block; width:180px'></div>
+
                 </div>
             </div>
             <div class="additional_info">

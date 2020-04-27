@@ -53,28 +53,13 @@
             display: block;
             z-index: 2;
         }
-
-        #searchbook {
-            width: 500px;
-        }
     </style>
 
     <script>
-        $(document).ready(function () {
-            listing();
-        })
-
-        function listing() {
-            //검색 결과 카드 형태로 나열
-            console.log("리스팅 완료");
-        }
 
         function emptylist() {
             $('#bookresult').empty();
         }
-
-
-
 
         function make_card(thumbnail, title, authors, contents, url) {
             // 리스트 형태 결과 표시
@@ -83,7 +68,6 @@
                 thumbnail = 'https://search1.kakaocdn.net/thumb/C116x164.q85/?fname=http://search1.daumcdn.net/search/statics/common/img/noimg/4grid.png'
             }
             let bookcard =
-            
                 `
                  <li class="media" style="margin-down:2px">
                     <div class="media_button">
@@ -96,8 +80,8 @@
                         </div>
                 </li>
                 <hr>`
-                
-                
+
+
 
 
             $('#bookresult').append(bookcard);
@@ -119,7 +103,7 @@
             //카카오 api에서 책정보 가져오기 (제목, 저자, ISBN 검색 가능)
             let searchbook = $("#searchbook").val()
             let search_key = $('#search_key').val()
-            console.log(search_key)
+            // console.log(search_key)
             $.ajax({
                 method: "POST",
                 url: "/info",
@@ -129,7 +113,7 @@
                 },
                 success: function (response) {
                     let info = response.info
-                    console.log(info)
+                    // console.log(info)
 
                     for (let i = 0; i < info.length; i++) {
                         let books = response.info[i]
