@@ -180,5 +180,5 @@ def info():
 
 
 if __name__ == '__main__':
-    port = os.getenv('PORT', 5005)
+    port = os.getenv('PORT', 80)
     app.run('0.0.0.0', port,  debug=True)
