@@ -182,12 +182,20 @@
             var userInput = prompt('당신의 별점은? (0~5)')
             let title = $('#booktitle').text();
             let url = document.location.href;
+            var dt = new Date();
+			var Year = dt.getFullYear();
+			var Month = "" + (dt.getMonth() + 1);
+			var Day = "" + dt.getDate();
+			if (Month.length < 2) Month = "0" + Month;
+			if (Day.length < 2) Day = "0" + Day;
+			var start = Year + '-' + Month + '-' + Day;
             $.ajax({
                 method: "POST",
                 url: "/session_in",
                 data: {
                     title: title,
                     url: url,
+                    start:start,
                     rating: userInput
                 },
                 success: function (response) {
@@ -219,16 +227,16 @@
 
                     ratingnum = filteredBooks[0].rating
                     console.log(ratingnum);
-                    if (ratingnum === undefined) {
+                    if (ratingnum === null || filterdbooks==='') {
                         let starrating = `
-                                <dt>별점</dt>
-                                <dd>없음</dd>`
+                                <dt>내 별점</dt>
+                                <dd> 없음</dd>`
                         $('#rating').append(starrating);
                     }
                     else {
                         let starrating = `
-                                <dt>별점</dt>
-                                <dd>${ratingnum}</dd>`
+                                <dt>내 별점</dt>
+                                <dd> ${ratingnum}</dd>`
                         $('#rating').append(starrating);
                     }
                 }

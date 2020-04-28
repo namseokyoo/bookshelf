@@ -53,14 +53,6 @@
 
 			});
 			function listing() {
-				var dt = new Date();
-				var Year = dt.getFullYear();
-				var Month = "" + (dt.getMonth() + 1);
-				var Day = "" + dt.getDate();
-				if (Month.length < 2) Month = "0" + Month;
-				if (Day.length < 2) Day = "0" + Day;
-				var start = Year + '-' + Month + '-' + Day;
-				console.log(start)
 				$.ajax({
 					method: "GET",
 					url: "/bookshelflist",
@@ -74,6 +66,7 @@
 						for (i = 0; i < book.length; i++) {
 							title = book[i].title
 							url = book[i].url
+							start = book[i].start
 							console.log(title)
 							booklist = {
 								title: title,
