@@ -49,7 +49,7 @@ class MongoSession(CallbackDict, SessionMixin):
 class MongoSessinoInterface(SessionInterface):
     def __init__(self, host='localhost', port=27017,\
                 db='', collection='sessions'):
-        # client = MongoClient(host, port) 
+        # client = MongoClient(host, port)
         self.store = client[db][collection]
 
     def open_session(self, app, request):
@@ -152,6 +152,16 @@ def bookshelf():
 @app.route('/bookshelflist')
 def addShelf():
     sid = session.sid
+    event = list(db.sessions.find({'sid':sid},{'_id':0}))
+    #print(event)
+    return jsonify({'result':'success','event':event})
+
+@app.route('/bookshelflist_remove')
+def removeEvent():
+    sid = session.sid
+    remove_title=request.args.get('title')
+    print(remove_title)
+    session.pop(remove_title,None)
     event = list(db.sessions.find({'sid':sid},{'_id':0}))
     #print(event)
     return jsonify({'result':'success','event':event})
