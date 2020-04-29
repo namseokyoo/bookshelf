@@ -200,16 +200,14 @@
                 },
                 success: function (response) {
                     let event = response.event;
-                    // console.log(event)
+                     console.log(event)
 
                 }
             })
-            if (confirm('Go to shelf-page?')) {
-                window.open('/bookshelf');
-            }
-            else {
-                alert('저장완료!')
-            }
+            
+            alert('저장완료!')
+            window.location.reload()
+            
         }
 
         function rating(title) {
@@ -234,7 +232,7 @@
 
                         let starrating = `
                                     <dl>
-                                    <dt> <img src='static/images/starr.png' width='70px', height='70px'/>없음</dt>
+                                    <dt style='font-size:20px'> <img src='static/images/icon.png' width='30px', height='30px'/>&nbsp 없음</dt>
                                     </dl>`
                         $('#rating').append(starrating);
 
@@ -242,12 +240,19 @@
                     else {
                         ratingnum = filteredBooks[0].rating
                         // console.log(ratingnum);
-                        let starrating = `
+                        if(ratingnum === null){
+                            let starrating = `
                                     <dl>
-                                    <dt>내 <img src='static/images/starr.png' width='70px', height='70px'/> </dt>
-                                    <dd> ${ratingnum} 점</dd>
+                                    <dt style='font-size:20px'> <img src='static/images/icon.png' width='30px', height='30px'/>&nbsp 없음</dt>
                                     </dl>`
                         $('#rating').append(starrating);
+                        }
+                        else{
+                        let starrating = `
+                                    <dl>
+                                        <dt style='font-size:20px'> <img src='static/images/icon.png' width='30px', height='30px'/>&nbsp ${ratingnum}점</dt>
+                                    </dl>`
+                        $('#rating').append(starrating);}
                         let check = `
                         <h5 style="float: left; width:180px;height:1.2rem">내 책상 보유 여부</h5>
                         <label class="checkbox"style='display: inline-block;width:180px'><input type="checkbox" name="checkbox" checked='' onclick='return false;'><i> </i>보유</label>`
