@@ -220,8 +220,7 @@
                 success: function (response) {
                     let event = response.event;
                     // console.log(event);
-                    bookList = Object.values(event["0"].books);
-                    const filteredBooks = bookList.filter(book => book.title === inputBookTitle);
+                    const filteredBooks = event.filter(book => book.title === inputBookTitle);
                     // console.log(filteredBooks);
 
                     if (filteredBooks.length === 0) {

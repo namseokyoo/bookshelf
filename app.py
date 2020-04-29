@@ -106,7 +106,11 @@ def session_signin():
     start = request.args.get('start')
     sid = session.sid
     print(session.sid)
-    session[title]= {'title':title, 'url':url, 'rating':rating, 'start':start}
+    if list(db.books.find({'title':title})) == []:
+       db.books.insert_one({'title':title, 'url':url, 'rating':rating, 'start':start,'sid':sid})
+    else :
+       db.books.update({'title':title},{'title':title, 'url':url, 'rating':rating, 'start':start,'sid':sid})
+    #session[title]= {'title':title, 'url':url, 'rating':rating, 'start':start}
     #print(session)
     event = list(db.sessions.find({'sid':sid},{'_id':0}))
     return jsonify({'result':'success', 'event':event})
@@ -161,7 +165,7 @@ def removeEvent():
     sid = session.sid
     remove_title=request.args.get('title')
     print(remove_title)
-    session.pop(remove_title,None)
+    db.books.delete_one({'title':remove_title})
     event = list(db.sessions.find({'sid':sid},{'_id':0}))
     #print(event)
     return jsonify({'result':'success','event':event})

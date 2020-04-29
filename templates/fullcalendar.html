@@ -62,13 +62,13 @@
 					success: function (response) {
 						let event = response.event;
 						console.log(event);
-						book = Object.values(event["0"].books);
-						console.log(book);
+						//book = Object.values(event["0"].books);
+						//console.log(book);
 
-						for (i = 0; i < book.length; i++) {
-							title = book[i].title
-							url = book[i].url
-							start = book[i].start
+						for (i = 0; i < event.length; i++) {
+							title = event[i].title
+							url = event[i].url
+							start = event[i].start
 							console.log(title)
 							booklist = {
 								title: title,
