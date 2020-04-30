@@ -3,7 +3,7 @@ PORT=80
 
 function start_server(){
     echo "Start server on port ${PORT}"
-    nohup python app.py & 2> /dev/null
+    nohup authbind --deep python3 app.py & 2> /dev/null
 }
 
 function stop_server(){
