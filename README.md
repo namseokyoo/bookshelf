@@ -1,3 +1,4 @@
+![Chrome-2020-04-29-19-51-42](https://user-images.githubusercontent.com/2939062/80594202-8c614d00-8a5d-11ea-8f10-7146508f6a6c.gif)
 # Project name
 bookshelf, 나만의 책장, 리뷰를 한번에 보는곳
 
@@ -28,5 +29,5 @@ bookshelf, 나만의 책장, 리뷰를 한번에 보는곳
 * 유남석(@namseokyoo)
 * 기재원(@kijaewon)
 
-![Chrome-2020-04-29-19-51-42](https://user-images.githubusercontent.com/2939062/80594202-8c614d00-8a5d-11ea-8f10-7146508f6a6c.gif)
+
 
