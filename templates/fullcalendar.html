@@ -43,6 +43,8 @@
 					else {
 						if (confirm('Delete?')) {
 							info.event.remove();
+							remove(info.event.title);
+
 						}
 						else {
 							alert('Delete cancel')
@@ -82,23 +84,21 @@
 
 			}
 
-
-
-
 			calendar.render();
 		});
-
-		function click_remove(eventClickInfo) {
-			if (window.confirm('delete?')) {
-				event.remove();
+			function remove(title){
+				$.ajax({
+					method: "GET",
+					url: "/bookshelflist_remove",
+					data: {title:title},
+					success: function (response) {
+						let event = response.event;
+						console.log(event);
+						book = Object.values(event["0"].books);
+						console.log(book);}
+				})
+				window.location.reload();
 			}
-			else {
-				window.alert('cancel')
-			}
-
-		}
-
-
 
 
 	</script>
