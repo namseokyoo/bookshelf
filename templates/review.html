@@ -15,18 +15,9 @@
     <link href="static/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="static/css/fasthover.css" rel="stylesheet" type="text/css" media="all" />
     <!-- //Custom Theme files -->
-    <!-- font-awesome icons -->
-    <link href="static/css/font-awesome.css" rel="stylesheet">
-    <!-- //font-awesome icons -->
     <!-- js -->
     <script src="static/js/jquery.min.js"></script>
     <!-- //js -->
-    <!-- web fonts -->
-    <link href='//fonts.googleapis.com/css?family=Glegoo:400,700' rel='stylesheet' type='text/css'>
-    <link
-        href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
-        rel='stylesheet' type='text/css'>
-    <!-- //web fonts -->
     <!-- for bootstrap working -->
     <script type="text/javascript" src="static/js/bootstrap-3.1.1.min.js"></script>
     <!-- //for bootstrap working -->
@@ -93,6 +84,44 @@
                 }
             })
 
+        }
+
+        // session 책장에 책이 저장되어 있는지 확인
+        function findbookshelf()
+        {
+            let title = $('#booktitle').text();
+        }
+
+        function writemyreview() {
+            // 책장에 책이 저장되어 있는지 먼저 확인
+            findbookshelf()
+
+            let myname = $('#myname').val()
+            let myemail = $('#myemail').val()
+            let mytitle = $('#mytitle').val()
+            let myreview = $('#myreview').val()
+
+            $.ajax({
+                type: 'POST',
+                url: '/writemyreview',
+                data: {
+                    myname,
+                    myemail,
+                    mytitle,
+                    myreview
+                },
+                success: function(response) {
+                    if(response['result'] == 'success')
+                    {
+                        alert(response['msg']);
+                        window.location.reload();
+                    }
+                }
+        })
+        console.log(myname)
+        console.log(myemail)
+        console.log(mytitle)
+        console.log(myreview)
         }
 
         function bookinfo(url) {
@@ -168,7 +197,9 @@
             $("#company").text(company)
             $("#date").text(date)
 
-            let desc = `<div>
+            let desc = `
+            <h5>책 소개</h5>
+            <div>
             <p>${description}</p>
             <br>
                 <dl><dt>출처 : </dt><dd>${descsrc}</dd></dt>
@@ -200,14 +231,14 @@
                 },
                 success: function (response) {
                     let event = response.event;
-                     console.log(event)
+                    console.log(event)
 
                 }
             })
-            
+
             alert('저장완료!')
             window.location.reload()
-            
+
         }
 
         function rating(title) {
@@ -240,19 +271,20 @@
                     else {
                         ratingnum = filteredBooks[0].rating
                         // console.log(ratingnum);
-                        if(ratingnum === null){
+                        if (ratingnum === null) {
                             let starrating = `
                                     <dl>
                                     <dt style='font-size:20px'> <img src='static/images/icon.png' width='30px', height='30px'/>&nbsp 없음</dt>
                                     </dl>`
-                        $('#rating').append(starrating);
+                            $('#rating').append(starrating);
                         }
-                        else{
-                        let starrating = `
+                        else {
+                            let starrating = `
                                     <dl>
                                         <dt style='font-size:20px'> <img src='static/images/icon.png' width='30px', height='30px'/>&nbsp ${ratingnum}점</dt>
                                     </dl>`
-                        $('#rating').append(starrating);}
+                            $('#rating').append(starrating);
+                        }
                         let check = `
                         <h5 style="float: left; width:180px;height:1.2rem">내 책상 보유 여부</h5>
                         <label class="checkbox"style='display: inline-block;width:180px'><input type="checkbox" name="checkbox" checked='' onclick='return false;'><i> </i>보유</label>`
@@ -303,7 +335,7 @@
         .single-left {
             float: left;
             width: 200px;
-            height: 300px;
+            height: 250px;
         }
 
         .single-right {
@@ -367,12 +399,12 @@
                     </div>
 
                 </div>
-		 <div id='rating' style='display: inline-block; width:180px; margin-left:3px'></div>
-		 <div class="simpleCart_shelfItem">
-			 <div class="btn">
-			 <button type="button" class="w3ls-cart" onclick="addShelf()">내 책장에 넣기</button>
-		</div>
-		 </div>
+                <div id='rating' style='display: inline-block; width:180px; margin-left:3px'></div>
+                <div class="simpleCart_shelfItem">
+                    <div class="btn">
+                        <button type="button" class="w3ls-cart" onclick="addShelf()">내 책장에 넣기</button>
+                    </div>
+                </div>
             </div>
             <div class="additional_info">
                 <div class="container">
@@ -381,42 +413,52 @@
                             <ul>
                                 <li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>책 소개</span>
                                 </li>
-                                <li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>Reviews</span>
+                                <li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>나의 리뷰</span>
+                                </li>
+                                <li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>리뷰 모음</span>
                                 </li>
                                 <li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>관련 영상</span>
                                 </li>
                             </ul>
-                            <div class="tab-1 resp-tab-content additional_info_grid" id="book_description"
-                                aria-labelledby="tab_item-0">
+                            <!-- 책 소개 -->
 
-                                <!-- book description 공간 -->
-
+                            <div class="tab-1 resp-tab-content additional_info_grid" aria-labelledby="tab_item-0">
+                                <div class="review_grids" id="book_description">
+                                    <!-- book description 공간 -->
+                                </div>
                             </div>
-
+                            <!-- 책 소개 -->
+                            <!-- 나의 리뷰 -->
                             <div class="tab-2 resp-tab-content additional_info_grid" aria-labelledby="tab_item-1">
-                                <div id="reviews-list">
+                                <div class="review_grids">
+                                    <h5>내 리뷰 쓰기</h5>
+                                    <form action="#" method="post">
+                                        <input id="myname" type="text" name="myname" placeholder="작성자명">
+                                        <input id="myemail" type="email" name="myemail" placeholder="Email">
+                                        <input id="mytitle" type="text" name="mytitle" placeholder="리뷰 제목">
+                                        <textarea id="myreview" name="myreview" placeholder="리뷰를 작성 해주세요"></textarea>
+                                        <input type="submit" value="Submit" onclick="writemyreview()">
+                                    </form>
+                                    <br>
+                                    <h5>내 리뷰 보기</h5>
+                                    <div Class="myreviewlist">
+                                        <!-- 내가 쓴 리뷰 list -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 나의 리뷰 -->
+                            <!-- 리뷰 모음 -->
+                            <div class="tab-3 resp-tab-content additional_info_grid" aria-labelledby="tab_item-2">
+                                <div class="review_grids" id="reviews-list">
+                                    <h5>리뷰 모음</h5>
                                     <!-- reviews 공간 -->
                                 </div>
-                                <div class="review_grids">
-                                    <h5>내 리뷰 추가</h5>
-                                    <form action="#" method="post">
-                                        <input type="text" name="Name" value="Name" onfocus="this.value = '';"
-                                            onblur="if (this.value == '') {this.value = 'Name';}" required="">
-                                        <input type="email" name="Email" placeholder="Email" required="">
-                                        <input type="text" name="Telephone" value="Telephone" onfocus="this.value = '';"
-                                            onblur="if (this.value == '') {this.value = 'Telephone';}" required="">
-                                        <textarea name="Review" onfocus="this.value = '';"
-                                            onblur="if (this.value == '') {this.value = 'Add Your Review';}"
-                                            required="">Add Your Review</textarea>
-                                        <input type="submit" value="Submit">
-                                    </form>
-                                </div>
                             </div>
-
-                            <div class="tab-3 resp-tab-content additional_info_grid" aria-labelledby="tab_item-2">
+                            <!-- 리뷰 모음 -->
+                            <div class="tab-4 resp-tab-content additional_info_grid" aria-labelledby="tab_item-3">
                                 <!--Grid row-->
-                                <div class="row mb-5" id="video_list">
-
+                                <div class="row mb-5 review_grids" id="video_list">
+                                    <h5>관련 영상</h5>
 
                                     <!-- Video Grid Space -->
 

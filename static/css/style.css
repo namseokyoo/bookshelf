@@ -2923,7 +2923,8 @@ div#horizontalTab1 ul {
     width: 100% !important;
 }
 .review_grids input[type="email"]{
-	margin-left:1em;
+	margin-left:auto;
+	width: 48.7%;
 }
 .review_grids textarea{
 	width:100% !important;

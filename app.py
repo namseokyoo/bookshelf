@@ -26,7 +26,7 @@ PASSWORD = os.getenv('PASSWORD')
 # >>> client = MongoClient('example.com',
 # …                      username='user',
 # …                      password='password',
-# …                      authSource='the_database',
+# …                      authSource='admin',
 # …                      authMechanism='SCRAM-SHA-1')
 
 client = MongoClient(HOST,
@@ -49,11 +49,13 @@ class MongoSession(CallbackDict, SessionMixin):
 class MongoSessinoInterface(SessionInterface):
     def __init__(self, host='localhost', port=27017,\
                 db='', collection='sessions'):
-        # client = MongoClient(host, port)
+        client = MongoClient(host, port)
         self.store = client[db][collection]
-
+        print(self.store)
     def open_session(self, app, request):
         sid = request.cookies.get(app.session_cookie_name)
+        print("sid is   " + sid)
+        print(self.store.find_one({'sid':sid}))
         if sid:
             stored_session = self.store.find_one({'sid': sid})
             if stored_session:
@@ -125,6 +127,28 @@ def review():
     return jsonify({'result': 'success', 'review': result})
 
 
+# 나의 리뷰 DB저장
+# @app.route('/writemyreview', methods=['POST'])
+# def writemyreview():
+#     #booktitle 및 나의리뷰 항목4가지 받기
+#     title = request.form['title']
+#     myname = request.form['myname']
+#     myemail = request.form['myemail']
+#     mytitle = request.form['mytitle']
+#     myreview = request.form['myreview']
+
+#     myreviewlist = {
+#         'myname':myname,
+#         'myemail':myemail,
+#         'mytitle':mytitle,
+#         'myreview':myreview
+#     }
+
+#     sid = session.sid
+
+
+#     return jsonify({'result':'success','msg':'리뷰가 저장 되었습니다.'})
+
 @app.route('/bookinfo', methods=['POST'])
 def bookinfo():
     infourl = request.form['bookurl']
@@ -149,9 +173,10 @@ def video():
 def bookshelf():
    return render_template('fullcalendar.html')
 
-@app.route('/bookshelflist')
+@app.route('/bookshelflist')    
 def addShelf():
     sid = session.sid
+    # sid = 'f7b6bb9c-eae3-4679-892e-bad0dde9a8d5'
     event = list(db.sessions.find({'sid':sid},{'_id':0}))
     #print(event)
     return jsonify({'result':'success','event':event})
@@ -159,6 +184,7 @@ def addShelf():
 @app.route('/bookshelflist_remove')
 def removeEvent():
     sid = session.sid
+    # sid = 'f7b6bb9c-eae3-4679-892e-bad0dde9a8d5'
     remove_title=request.args.get('title')
     print(remove_title)
     session.pop(remove_title,None)
@@ -190,5 +216,5 @@ def info():
 
 
 if __name__ == '__main__':
-    port = os.getenv('PORT', 80)
-    app.run('0.0.0.0', port=80)
+    port = os.getenv('PORT', 5000)
+    app.run('0.0.0.0', port, debug=True)
